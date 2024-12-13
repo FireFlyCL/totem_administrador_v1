@@ -1,0 +1,195 @@
+<div class="faq-table">
+  <!-- Botones y filtros organizados en una sola fila -->
+  <div class="faq-buttons">
+    <div class="left-buttons">
+      <button class="btn btn-primary" (click)="goBack()">
+        <i class="fas fa-arrow-left"></i> Volver
+      </button>
+      <button class="btn btn-secondary add-question" (click)="openAddFaqModal()">
+        <i class="fas fa-plus"></i> Agregar Pregunta
+      </button>
+    </div>
+
+    <div class="center-buttons search-container">
+      <input type="text" placeholder="Buscar pregunta..." [(ngModel)]="searchTerm" (input)="filterFaqs()" />
+      <i class="fas fa-search search-icon"></i>
+    </div>
+
+    <div class="right-buttons">
+      <button class="btn btn-primary" (click)="downloadExcelPorCategoria()">
+        <i class="fas fa-download"></i> Descargar Preguntas
+      </button>
+      <button class="btn btn-primary" (click)="openUploadModal()">
+        <i class="fas fa-upload"></i> Subir Preguntas
+      </button>
+    </div>
+  </div>
+
+  <!-- Modal para agregar una nueva pregunta -->
+  <div *ngIf="isAddingFaq" class="modal-overlay">
+    <div class="modal-content">
+      <h2>Agregar Nueva Pregunta</h2>
+      <div class="modal-body">
+        <label for="question">Pregunta</label>
+        <input
+          id="question"
+          type="text"
+          [(ngModel)]="newQuestion"
+          placeholder="Ingrese la pregunta"
+          class="form-control"
+        />
+        <label for="answer">Respuesta</label>
+        <input
+          id="answer"
+          type="text"
+          [(ngModel)]="newAnswer"
+          placeholder="Ingrese la respuesta"
+          class="form-control"
+        />
+        <!-- Mensaje de error si hay problemas con los campos -->
+        <div *ngIf="uploadMessage" class="error-message">{{ uploadMessage }}</div>
+      </div>
+      <div class="modal-footer">
+        <button (click)="saveNewFaq()" class="btn btn-primary">
+          <i class="fas fa-save"></i> Guardar
+        </button>
+        <button (click)="cancelAddFaq()" class="btn btn-secondary">
+          <i class="fas fa-times"></i> Cancelar
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal para editar una pregunta -->
+  <div *ngIf="isEditingFaq" class="modal-overlay">
+    <div class="modal-content">
+      <h2>Editar Pregunta</h2>
+      <div class="modal-body">
+        <label for="editQuestion">Pregunta</label>
+        <input
+          id="editQuestion"
+          type="text"
+          [(ngModel)]="editedFaq.faq_question"
+          placeholder="Editar la pregunta"
+          class="form-control"
+        />
+        <label for="editAnswer">Respuesta</label>
+        <input
+          id="editAnswer"
+          type="text"
+          [(ngModel)]="editedFaq.faq_answer"
+          placeholder="Editar la respuesta"
+          class="form-control"
+        />
+      </div>
+      <div class="modal-footer">
+        <button (click)="saveEditedFaq()" class="btn btn-primary">
+          <i class="fas fa-save"></i> Guardar Cambios
+        </button>
+        <button (click)="cancelEditFaq()" class="btn btn-secondary">
+          <i class="fas fa-times"></i> Cancelar
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal de confirmación de eliminación -->
+  <div *ngIf="isDeletingFaq" class="modal-overlay">
+    <div class="modal-content">
+      <h2>Confirmar Eliminación</h2>
+      <p>¿Estás seguro de que deseas eliminar esta pregunta?</p>
+      <div class="modal-footer">
+        <button (click)="confirmDelete()" class="btn btn-delete">
+          <i class="fas fa-trash-alt"></i> Sí, eliminar
+        </button>
+        <button (click)="cancelDelete()" class="btn btn-secondary">
+          <i class="fas fa-times"></i> Cancelar
+        </button>
+      </div>
+    </div>
+  </div>
+
+<!-- Modal para subir preguntas desde un archivo Excel -->
+<div *ngIf="isUploadModalOpen" class="modal-overlay">
+  <div class="modal-content">
+    <h2>Subir Preguntas</h2>
+    <div class="upload-instructions">
+      <p><strong>Para una buena carga masiva de preguntas, sigue estos pasos:</strong></p>
+      <ul>
+        <li>Descargar las preguntas primero para que puedas seguir el formato.</li>
+        <li>No cambies el encabezado, solo agrega las preguntas más su estado.</li>
+        <li>Estado: + Activa, - Inactiva.</li>
+      </ul>
+    </div>
+    <div class="modal-body">
+      <div class="custom-file-container">
+        <input
+          id="fileUpload"
+          type="file"
+          (change)="onFileSelected($event)"
+          class="custom-file-input"
+        />
+        <label for="fileUpload" class="custom-file-label">Seleccionar archivo</label>
+        <span *ngIf="selectedFile" class="file-name">{{ selectedFile.name }}</span>
+      </div>
+    </div>
+    <div *ngIf="uploadMessage" class="upload-message" [ngClass]="{ 'success': isUploadSuccess, 'error': !isUploadSuccess }">
+      {{ uploadMessage }}
+    </div>
+    <div class="modal-footer">
+      <button (click)="uploadFile()" class="btn btn-primary" [disabled]="!selectedFile">
+        <i class="fas fa-upload"></i> Cargar
+      </button>
+      <button (click)="closeUploadModal()" class="btn btn-secondary">
+        <i class="fas fa-times"></i> Cancelar
+      </button>
+    </div>
+  </div>
+</div>
+
+  <!-- Mensaje informativo -->
+  <div class="info-message">
+    <p>Desliza las preguntas con el icono <i class="fas fa-grip-lines"></i> para poder modificar el orden que se muestran las preguntas.</p>
+  </div>
+
+  <!-- Tabla de FAQs -->
+  <table cdkDropList (cdkDropListDropped)="drop($event)">
+    <thead>
+      <tr>
+        <th></th> <!-- Columna para el ícono de "arrastrar" -->
+        <th>Pregunta</th>
+        <th>Respuesta</th>
+        <th>Estado</th>
+        <th>Editar</th> <!-- Columna para Editar -->
+        <th>Eliminar</th> <!-- Columna para Eliminar -->
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let faq of filteredFaqs" cdkDrag>
+        <td class="drag-handle"><i class="fas fa-grip-lines"></i></td> <!-- Ícono de "arrastrar" -->
+        <td>{{ faq.faq_question }}</td>
+        <td>{{ faq.faq_answer }}</td>
+        <td>
+          <button
+            class="btn-toggle"
+            [class.active]="faq.is_active"
+            [class.inactive]="!faq.is_active"
+            (click)="toggleFaqStatus(faq.id_faq)"
+          >
+            {{ faq.is_active ? 'Activo' : 'Inactivo' }}
+          </button>
+        </td>
+        <td>
+          <button class="btn-edit" (click)="openEditFaqModal(faq)">
+            Editar
+          </button>
+        </td>
+        <td>
+          <button class="btn-delete" (click)="prepareDeleteFaq(faq.id_faq)">
+            Eliminar
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

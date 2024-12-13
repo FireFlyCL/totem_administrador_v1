@@ -1,0 +1,280 @@
+@font-face {
+  font-family: 'Merriweather';
+  src: url('/assets/Merriweather/Merriweather-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Merriweather';
+  src: url('/assets/Merriweather/Merriweather-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Merriweather';
+  src: url('/assets/Merriweather/Merriweather-Italic.ttf') format('truetype');
+  font-weight: 400;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Merriweather';
+  src: url('/assets/Merriweather/Merriweather-BoldItalic.ttf') format('truetype');
+  font-weight: 700;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Merriweather';
+  src: url('/assets/Merriweather/Merriweather-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Merriweather';
+  src: url('/assets/Merriweather/Merriweather-LightItalic.ttf') format('truetype');
+  font-weight: 300;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Merriweather';
+  src: url('/assets/Merriweather/Merriweather-Black.ttf') format('truetype');
+  font-weight: 900;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Merriweather';
+  src: url('/assets/Merriweather/Merriweather-BlackItalic.ttf') format('truetype');
+  font-weight: 900;
+  font-style: italic;
+}
+
+* {
+  font-family: 'Merriweather', sans-serif;
+}
+
+/* Contenedor principal para dividir la pantalla */
+.container-main {
+  display: flex;
+  width: 100%;
+  padding: 20px;
+  gap: 20px;
+  box-sizing: border-box;
+}
+
+/* Columnas (izquierda: colaboradores, derecha: imágenes sin asignar) */
+.left-column,
+.right-column {
+  flex: 1; /* Ocupa el mismo ancho para ambas columnas */
+  padding: 20px;
+  border: 1px solid #fbb414; /* Añadir borde similar al de las cards */
+  border-radius: 10px;
+  background-color: white; /* Fondo blanco para ambas columnas */
+  box-sizing: border-box;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column; /* Asegura que el título y las cards estén uno debajo del otro */
+  gap: 1rem; /* Espacio entre los elementos */
+}
+
+
+
+/* Subtítulo de las columnas */
+.subtitle {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+/* Contenedor de las cards dentro de cada columna */
+.column-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 1rem; /* Espacio entre las cards */
+}
+
+/* Estilo para cada tarjeta de colaborador */
+.card {
+  background-color: white;
+  border: 1px solid #fbb414;
+  border-radius: 10px;
+  padding: 10px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  height: 250px;
+}
+
+/* Card seleccionado */
+.card.selected {
+  border-color: #fbb414; /* Cambiar el color del borde para indicar selección */
+  box-shadow: 0 0 10px rgb(255, 123, 0);
+  background-color: #fbb414;
+}
+
+/* Imagen del colaborador */
+.foto-perfil {
+  width: 120px; /* Ancho de la imagen */
+  margin-bottom: 10px;
+  border-radius: 5px; /* Bordes redondeados */
+  object-fit: cover; /* Ajustar la imagen para cubrir el espacio sin distorsión */
+}
+
+/* Imagen dentro de cada tarjeta */
+.profile {
+  width: 130px;
+  height: auto;
+  border-radius: 50%;
+}
+
+/* Botones */
+button {
+  width: auto;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: small;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-color: #fbb414 !important;
+  border-style: solid;
+  margin-bottom: 5px !important;
+}
+
+button:hover {
+  transform: translateY(-5px); /* Eleva el botón 5px hacia arriba */
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada */
+}
+
+/* Estilo de las imágenes sin asignar */
+.image-card {
+  background-color: white;
+  border: 1px solid #fbb414;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  height: 250px;
+  width: 9rem;
+}
+
+/* Contenedor de las imágenes */
+.image-container {
+  display: flexbox;
+  flex: wrap; /* Permitir que las imágenes se envuelvan si es necesario */
+  gap: 1rem; /* Espacio entre las tarjetas */
+}
+
+
+/* Estilo del modal overlay para centrar en la pantalla */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5); /* Fondo oscuro semitransparente */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999; /* Asegurar que esté por encima de otros elementos */
+}
+
+.modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 400px;
+  max-width: 90%;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+/* Cerrar el Modal */
+.modal-header .close {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+/* Botones dentro del modal */
+.modal-body button {
+  width: auto;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 1rem;
+  border: 1px solid #fbb414;
+  background-color: #fbb414;
+  color: white;
+  cursor: pointer;
+}
+
+.modal-body button:hover {
+  background-color: #e6a409; /* Oscurecer un poco el color al pasar el ratón */
+}
+
+.modal-body input[type="file"] {
+  display: block;
+  margin-bottom: 1rem;
+}
+/* Modal de Alerta */
+.modal-alert {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Fondo semitransparente */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+  border: #fbb414 2px solid !important;
+  border-radius: 15px;
+}
+
+.modal-content-alert {
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 20px;
+  width: 300px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.modal-content-alert h3 {
+  margin-bottom: 10px;
+  font-size: 18px;
+}
+
+.modal-content-alert p {
+  margin-bottom: 20px;
+  font-size: 14px;
+}
+
+.modal-content-alert button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.modal-content-alert button:hover {
+  background-color: #0056b3;
+}

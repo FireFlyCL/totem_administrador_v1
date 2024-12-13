@@ -1,0 +1,124 @@
+<div class="category-container">
+  <!-- Contenedor del título con fondo -->
+  <div class="title-container">
+    <h1>Preguntas Frecuentes</h1>
+  </div>
+
+  <!-- Botones de acciones para categorías y preguntas -->
+  <div class="actions">
+    <div class="left-actions">
+      <button *ngIf="hasPermission(26)" (click)="addCategory()">
+        <i class="fas fa-plus"></i> Agregar Categoría
+      </button>
+    </div>
+    <div class="right-actions">
+      <button *ngIf="hasPermission(29)" (click)="openUploadModal()">
+        <i class="fas fa-upload"></i> Subir Excel de Todas las FAQ
+      </button>
+      <button *ngIf="hasPermission(29)" (click)="downloadExcel()">
+        <i class="fas fa-download"></i> Descargar Excel de Todas las FAQ
+      </button>
+    </div>
+  </div>
+
+  <!-- Mensaje de ayuda para ordenar categorías -->
+  <div class="order-message">
+    <p>
+      Desliza las categorías con el icono <i class="fas fa-grip-lines"></i> de Derecha a Izquierda para poder modificar el orden que se muestran las categorías.
+    </p>
+  </div>
+
+  <!-- Modal para agregar una nueva categoría -->
+  <div *ngIf="isAddingCategory" class="modal-overlay">
+    <div class="modal-content">
+      <h2>Agregar Nueva Categoría</h2>
+      <label for="categoryName"></label>
+      <input
+        id="categoryName"
+        type="text"
+        [(ngModel)]="newCategory.faq_category_name"
+        placeholder="Nombre de la Categoría"
+        maxlength="100"
+        class="form-control"
+      />
+      <!-- Mensaje de error de validación -->
+      <div *ngIf="errorMessage" class="error-message">
+        {{ errorMessage }}
+      </div>
+      <button (click)="saveNewCategory()" class="btn btn-primary">Guardar</button>
+      <button class="cancel-button" (click)="cancelAdding()">Cancelar</button>
+    </div>
+  </div>
+
+  <!-- Modal de confirmación de eliminación de categoría -->
+  <div *ngIf="isDeletingCategory" class="modal-overlay">
+    <div class="modal-content">
+      <h2>Confirmar Eliminación</h2>
+      <p>¿Estás seguro de que deseas eliminar esta categoría?</p>
+      <button (click)="confirmDeleteCategory()" class="btn btn-danger">Sí, eliminar</button>
+      <button class="cancel-button" (click)="cancelDelete()">Cancelar</button>
+    </div>
+  </div>
+
+  <!-- Modal para subir archivo Excel de todas las preguntas -->
+  <div *ngIf="isUploadModalOpen" class="modal-overlay">
+    <div class="modal-content">
+      <h2>Subir Preguntas</h2>
+      <div class="upload-instructions">
+        <p><strong>Para una buena carga masiva de preguntas, sigue estos pasos:</strong></p>
+        <ul>
+          <li>Descargar las preguntas primero para que puedas seguir el formato.</li>
+          <li>No cambies el encabezado, solo agrega las preguntas más su estado.</li>
+          <li>Estado: + Activa, - Inactiva.</li>
+        </ul>
+      </div>
+      <div class="modal-body">
+        <label for="fileUpload"></label>
+        <div class="custom-file-container">
+          <input
+            id="fileUpload"
+            type="file"
+            (change)="onFileSelected($event)"
+          />
+          <label for="fileUpload" class="custom-file-label">Seleccionar archivo</label>
+          <span *ngIf="fileToUpload" class="file-name">{{ fileToUpload.name }}</span>
+        </div>
+      </div>
+      <div *ngIf="uploadMessage" class="upload-message" [ngClass]="{ 'success': isUploadSuccess, 'error': !isUploadSuccess }">
+        {{ uploadMessage }}
+      </div>
+      
+      <div class="modal-footer">
+        <button (click)="uploadExcel()" class="btn btn-primary" [disabled]="!fileToUpload">
+          <i class="fas fa-upload"></i> Cargar
+        </button>
+        <button (click)="closeUploadModal()" class="cancel-button">
+          <i class="fas fa-times"></i> Cancelar
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Renderizar las categorías con drag-and-drop -->
+  <div cdkDropList (cdkDropListDropped)="drop($event)" class="categories-list">
+    <div class="category-card" *ngFor="let category of categories" cdkDrag>
+      <div class="card-header">
+        <!-- Número de la categoría -->
+        <span class="category-number">#{{ category.importance }}</span>
+        <h2>
+          <i class="fas fa-grip-lines"></i> <!-- Icono para indicar que se puede arrastrar -->
+          {{ category.faq_category_name }}
+        </h2>
+        <!-- Botón de eliminar categoría, solo visible con permiso -->
+        <button *ngIf="hasPermission(28, category.id_faq_category)" class="delete-button" (click)="prepareDeleteCategory(category.id_faq_category)">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="card-body">
+        <button (click)="navigateToFaqsIndex(category.id_faq_category)">
+          Ver Preguntas
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

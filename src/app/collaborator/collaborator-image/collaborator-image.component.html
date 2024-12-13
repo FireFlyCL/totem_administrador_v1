@@ -1,0 +1,130 @@
+<button class="left-button" (click)="goBack()">↩ Volver</button>
+
+<!-- Botón para Subir Imágenes -->
+<button class="upload-button" (click)="openUploadModal()">Subir Imágenes</button>
+
+
+<!-- Botón de sincronización -->
+<div class="sync-button-container">
+  <button class="sync-button" (click)="synchronizeAssignments()" [disabled]="pendingAssignments.length === 0">
+    Sincronizar Asignaciones
+  </button>
+</div>
+
+<!-- Contenedor principal dividido en dos secciones -->
+<div class="container-main">
+  <!-- Columna Izquierda: Colaboradores -->
+  <div class="left-column">
+    <h3 class="subtitle">Colaboradores</h3>
+    <div class="column-content">
+      <div
+      *ngFor="let collaborator of filteredCollaborators"
+      class="col-info card"
+      [class.selected]="selectedCollaborator?.id_collaborator === collaborator.id_collaborator"
+      (click)="selectCollaborator(collaborator)"
+    >
+    <img
+    class="profile"
+    [src]="getFullImagePath(collaborator.image_path)"
+    alt="Imagen del colaborador"
+    *ngIf="collaborator.image_path"
+  />
+        <p>
+          <strong>Nombre:</strong> {{ collaborator.first_name }}
+          {{ collaborator.last_name }}
+        </p>
+      </div>
+    </div>
+  </div>
+  <!-- Columna Derecha: Imágenes Sin Asignar -->
+  <div class="right-column">
+    <h3 class="subtitle">Imágenes Sin Asignar</h3>
+    <div class="column-content">
+      <div *ngFor="let image of unassignedImages" class="image-card">
+        <img
+          [src]="getFullImagePath(image.unique_name)"
+          alt="{{ image.original_name }}"
+          class="foto-perfil"
+        />
+        <p>{{ image.original_name }}</p>
+        <!-- Botón para asignar la imagen al colaborador seleccionado -->
+        <button
+          *ngIf="selectedCollaborator"
+          (click)="addAssignmentToQueue(selectedCollaborator.id_collaborator, image.id_image)"
+        >
+          Asignar a {{ selectedCollaborator.first_name }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!--MODALES-->
+<!-- Modal para subir imágenes -->
+<div class="modal-overlay" *ngIf="isUploadModalOpen">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2>Subir Imágenes</h2>
+      <button class="close" (click)="isUploadModalOpen = false">✖</button>
+    </div>
+    <div class="modal-body">
+      <input type="file" (change)="onFileSelected($event)" multiple />
+      <button class="upload-images-button" (click)="uploadImages()" [disabled]="selectedImages.length === 0">
+        Subir Imágenes
+      </button>
+    </div>
+  </div>
+</div>
+   <!-- Modal de Alerta de Guardado -->
+   <div class="modal-alert" *ngIf="showAlertModal1">
+    <div class="modal-content-alert">
+      <h3>Cambios Guardados</h3>
+      <p>Los cambios se guardaron exitosamente.</p>
+      <button (click)="closeAlertModal1()">OK</button>
+    </div>
+  </div>
+  
+  <!--Modal de Alerta de guardado con recarga de página-->
+  <div class="modal-alert" *ngIf="showAlertModal2">
+    <div class="modal-content-alert">
+      <h3>Cambios Guardados</h3>
+      <p>Los cambios se guardaron exitosamente.</p>
+      <button (click)="closeAlertModal2()">OK</button>
+    </div>
+  </div>
+
+<!--Modal de error de Carga-->  
+  <div class="modal-alert" *ngIf="showErrorAlertModal">
+    <div class="modal-content-alert">
+      <h3>Error</h3>
+      <p>Ha surgido un error. Intente nuevamente</p>
+      <button (click)="closeErrorAlertModal()">OK</button>
+    </div>
+  </div>
+
+  <!--Modal de Pedir al menos un archivo-->  
+  <div class="modal-alert" *ngIf="showErrorAlertUpload">
+    <div class="modal-content-alert">
+      <h3>Error</h3>
+      <p>Debes seleccionar al menos un archivo para subir </p>
+      <button (click)="closeErrorAlertUpload()">OK</button>
+    </div>
+  </div>
+  <!--Modal de Pedir al menos una asignación-->  
+  <div class="modal-alert" *ngIf="showErrorAlertAsign">
+    <div class="modal-content-alert">
+      <h3>Error</h3>
+      <p>Debes hacer al menos una asignación </p>
+      <button (click)="closeErrorAlertAsign()">OK</button>
+    </div>
+  </div>
+  <!--Modal de no hay asignaciones pendientes-->  
+  <div class="modal-alert" *ngIf="showAlertModal2">
+    <div class="modal-content-alert">
+      <h3>Atención</h3>
+      <p>No hay asignaciones pendientes </p>
+      <button (click)="closeErrorAlertUpload()">OK</button>
+    </div>
+  </div>
+  

@@ -1,0 +1,464 @@
+<div class="title">
+  <h1 style="font-family: Merriweather">Colaboradores</h1>
+</div>
+
+<div class="prn-btn">
+  <!-- Botón para abrir el modal de subir archivo -->
+  <button (click)="openExcelModal()" class="exc-btn">
+    Subir colaboradores
+  </button>
+
+  <!-- Botón para descargar el listado de colaboradores -->
+  <button (click)="openDownloadConfirmationModal()" class="exc-btn">
+    Descargar listado de colaboradores
+  </button>
+
+  <!-- Botón para agrear nuevo grupo de categoría de colaboradores -->
+  <button (click)="addGroupCategory()" class="add-btn">Agregar Grupo</button>
+
+  <!-- Mensaje de éxito -->
+  <div *ngIf="successMessage" class="success-message">
+    {{ successMessage }}
+  </div>
+</div>
+
+<hr class="custom-line" />
+<!-- SECCIÓN: ENCABEZADO DE DOCENTES -->
+<div class="subtitle">
+  <div class="sub">DOCENTES</div>
+</div>
+<hr class="custom-line" />
+
+<!-- SECCIÓN: LISTADO DE GRUPOS DE DOCENTES -->
+<div
+  class="group-category-list mat-no-styling"
+  cdkDropList
+  (cdkDropListDropped)="drop($event)"
+>
+  <div class="categories">
+    <!-- Itera sobre cada categoría de grupo en groupCategories y aplica cdkDrag para hacer los elementos arrastrables -->
+    <div
+      *ngFor="let groupcategory of groupCategories"
+      class="group-category-item mat-no-styling"
+      cdkDrag
+    >
+      <!-- Solo muestra categorías que no son administrativas -->
+      <div *ngIf="!groupcategory.is_administrative" class="box">
+        <!-- ENCABEZADO DEL GRUPO DE CATEGORÍA -->
+        <div class="grupo">
+          <div class="handle mat-no-styling">
+            <span class="drag-handle" cdkDragHandle>⋮</span>
+            {{ groupcategory.group_category_name }}
+          </div>
+          <!-- BOTONES DE ACCIÓN PARA LA CATEGORÍA -->
+          <div class="btn-gr mat-no-styling">
+            <!-- Botón para editar la categoría -->
+            <button
+              (click)="openEditModal(groupcategory.id_group_category)"
+              class="edit-btn-gr"
+            >
+              Editar
+            </button>
+            <!-- Botón para agregar un grupo de categoría docente-->
+            <button
+              (click)="openAddCategoryModal(groupcategory.id_group_category)"
+              class="add-btn"
+            >
+              Agregar Categoría
+            </button>
+            <!-- Botón para eliminar la categoría de grupo -->
+            <button
+              class="del-btn-gr"
+              (click)="
+                prepareDeleteGroupCategory(groupcategory.id_group_category)
+              "
+            >
+              Eliminar
+            </button>
+          </div>
+        </div>
+        <!-- SECCIÓN: CATEGORÍAS DOCENTE -->
+        <div class="card mat-no-styling">
+          <!-- Itera sobre las subcategorías de cada grupo -->
+          <div
+            *ngFor="
+              let category of getCategoriesByGroupId(
+                groupcategory.id_group_category
+              )
+            "
+            class="category-card mat-no-styling"
+            cdkDropList
+            (cdkDropListDropped)="dropCategory($event)"
+            cdkDrag
+          >
+            <span>
+              <div>
+                {{ category.collaborator_category_name || "Sin nombre" }}
+              </div>
+            </span>
+            <div class="btn-cat">
+              <button
+                (click)="
+                  navigateToCollaborators(category.id_collaborator_category)
+                "
+                class="col-btn"
+              >
+                Colaboradores
+              </button>
+              <!-- Botón para editar la categoría, llama a openEditCategoryModal() -->
+              <button
+                (click)="openEditCategoryModal(category)"
+                class="edit-btn"
+              >
+                Editar
+              </button>
+              <!-- Botón para eliminar la categoría -->
+              <button
+                (click)="
+                  prepareDeleteCategory(category.id_collaborator_category)
+                "
+                class="delete-btn"
+              >
+                Eliminar
+              </button>
+            </div>
+          </div>
+
+          <!-- Mensaje cuando no hay subcategorías en un grupo -->
+          <p
+            *ngIf="
+              getCategoriesByGroupId(groupcategory.id_group_category).length ===
+              0
+            "
+          >
+            No hay categorías en este grupo.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="custom-line" />
+<!-- SECCIÓN DE ENCABEZADO DE ADMINISTRATIVOS -->
+<div class="subtitle">
+  <div class="sub">ADMINISTRATIVOS</div>
+</div>
+<hr class="custom-line" />
+
+<!-- SECCIÓN: LISTADO DE GRUPOS ADMINISTRATIVOS-->
+<div
+  class="group-category-list mat-no-styling"
+  cdkDropList
+  (cdkDropListDropped)="drop($event)"
+>
+  <div class="categories">
+    <!-- Itera sobre cada categoría de grupo en groupCategories y aplica cdkDrag para hacer los elementos arrastrables -->
+    <div
+      *ngFor="let groupcategory of groupCategories"
+      class="group-category-item mat-no-styling"
+      cdkDrag
+    >
+      <!-- Solo muestra categorías que son administrativas -->
+      <div *ngIf="groupcategory.is_administrative" class="box">
+        <!-- ENCABEZADO DEL GRUPO DE CATEGORÍA-->
+        <div class="grupo">
+          <div class="handle mat-no-styling">
+            <span class="drag-handle" cdkDragHandle>⋮</span>
+            {{ groupcategory.group_category_name }}
+          </div>
+          <!--BOTONES DE ACCIÓN PARA LA CATEGORÍA-->
+          <div class="btn-gr mat-no-styling">
+            <!--Botón para editar la categoría-->
+            <button
+              (click)="openEditModal(groupcategory.id_group_category)"
+              class="edit-btn-gr"
+            >
+              Editar
+            </button>
+            <!-- Botón para agregar categoría adminitrativa -->
+            <button
+              (click)="openAddCategoryModal(groupcategory.id_group_category)"
+              class="add-btn"
+            >
+              Agregar Categoría
+            </button>
+            <!-- Botón para eliminar la categoría de grupo, llama a prepareDeleteGroupCategory() -->
+            <button
+              class="del-btn-gr"
+              (click)="
+                prepareDeleteGroupCategory(groupcategory.id_group_category)
+              "
+            >
+              Eliminar
+            </button>
+          </div>
+        </div>
+        <!--SECCIÓN: CATEGORÍA ADMINISTRATIVA-->
+        <div class="card mat-no-styling">
+          <!-- Itera sobre cada subcategoría en el grupo administrativo -->
+          <div
+            *ngFor="
+              let category of getCategoriesByGroupId(
+                groupcategory.id_group_category
+              )
+            "
+            class="category-card mat-no-styling"
+            cdkDropList
+            (cdkDropListDropped)="dropCategory($event)"
+            cdkDrag
+          >
+            <span
+              ><div>
+                {{ category.collaborator_category_name || "Sin nombre" }}
+              </div>
+            </span>
+            <div class="btn-cat">
+              <button
+                (click)="
+                  navigateToCollaborators(category.id_collaborator_category)
+                "
+                class="col-btn"
+              >
+                Colaboradores
+              </button>
+              <!-- Botón para editar la categoría, llama a openEditCategoryModal() -->
+              <button
+                (click)="openEditCategoryModal(category)"
+                class="edit-btn"
+              >
+                Editar
+              </button>
+              <!-- Botón para eliminar la categoría -->
+              <button
+                (click)="
+                  prepareDeleteCategory(category.id_collaborator_category)
+                "
+                class="delete-btn"
+              >
+                Eliminar
+              </button>
+            </div>
+          </div>
+
+          <!-- Mensaje que aparece si no hay subcategorías en el grupo -->
+          <p
+            *ngIf="
+              getCategoriesByGroupId(groupcategory.id_group_category).length ===
+              0
+            "
+          >
+            No hay categorías en este grupo.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!---->
+<!--MODALES-->
+<!---->
+
+<!-- MODAL PARA AGREGAR GRUPO-->
+<div class="modals">
+  <div *ngIf="isAddingGroupCategory" class="modal-overlay">
+    <div class="modal-content">
+      <h3>Agregar Nuevo Grupo de Categoría</h3>
+
+      <!-- Campo de entrada para el nombre de la nueva categoría de grupo -->
+      <input
+        type="text"
+        [(ngModel)]="newGroupCategory.name"
+        placeholder="Nombre de la categoría"
+      />
+
+      <!-- Selección del tipo de grupo (Administrativo o Docente) -->
+      <div class="select">
+        <label>
+          <input
+            type="radio"
+            name="groupType"
+            [(ngModel)]="newGroupCategory.type"
+            [value]="true"
+          />
+          Administrativo
+        </label>
+        <label>
+          <input
+            type="radio"
+            name="groupType"
+            [(ngModel)]="newGroupCategory.type"
+            [value]="false"
+          />
+          Docente
+        </label>
+      </div>
+
+      <!-- Mensaje de error si existe -->
+      <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
+
+      <!-- Botón para guardar la nueva categoría, llama a saveNewGroupCategory() -->
+      <button (click)="saveNewGroupCategory()" class="addg">Guardar</button>
+
+      <!-- Botón para cancelar la acción, llama a cancelAddingGroup() -->
+      <button (click)="cancelAddingGroup()" class="cancel-btn">Cancelar</button>
+    </div>
+  </div>
+
+  <!-- MODAL PARA SUBIR ARCHIVO -->
+  <div class="modal-overlay" *ngIf="isModalOpen">
+    <div class="modal-content">
+      <h2>Subir Archivo de Colaboradores</h2>
+
+      <!-- Input de selección de archivo -->
+      <input
+        type="file"
+        (change)="onExcelFileSelected($event)"
+        accept=".xlsx"
+      />
+
+      <!-- Botón para abrir el modal de confirmación -->
+      <button class="upex" (click)="openConfirmationExcelModal()">
+        Subir archivo
+      </button>
+
+      <!-- Botón de cierre del modal -->
+      <button class="cancel-btn" (click)="closeExcelModal()">Cancelar</button>
+    </div>
+  </div>
+
+  <!-- MODAL DE CONFIRMACIÓN DE SUBIDA -->
+  <div *ngIf="showConfirmationModal" class="modal-overlay-upex">
+    <div class="modal-content-upex">
+      <h3>Confirmación de Subida</h3>
+      <p>
+        Subir este archivo eliminará los datos existentes. ¿Estás seguro de que
+        deseas continuar?
+      </p>
+      <div class="modal-buttons-upex">
+        <button (click)="onConfirmExcelUpload()" class="confirm-button">
+          Sí, continuar
+        </button>
+        <button (click)="onCancelExcelUpload()" class="cancel-button">
+          Cancelar
+        </button>
+      </div>
+    </div>
+  </div>  
+
+  <!-- MODAL DE CONFIRMACIÓN DE DESCARGA -->
+  <div *ngIf="showDownloadModal" class="modal-overlay">
+    <div class="modal-content">
+      <h3>Confirmación de Descarga</h3>
+      <p>¿Estás seguro de que deseas descargar el listado de colaboradores?</p>
+      <div class="modal-buttons">
+        <button (click)="onConfirmDownload()" class="confirm-button">
+          Sí, continuar
+        </button>
+        <button (click)="onCancelDownload()" class="cancel-button">
+          Cancelar
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL PARA EDITAR GRUPO DE CATEGORÍA -->
+  <div *ngIf="isEditingGroupCategory" class="modal-overlay">
+    <div class="modal-content">
+      <h3>Editar Categoría de Grupo</h3>
+      <input
+        type="text"
+        [(ngModel)]="editGroupCategoryData.name"
+        placeholder="Nuevo nombre de la categoría"
+      />
+      <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
+      <button (click)="updateGroupCategory()">Guardar</button>
+      <button (click)="closeEditModal()" class="cancel-btn">Cancelar</button>
+    </div>
+  </div>
+
+  <!-- MODAL PARA AGREGAR UNA NUEVA CATEGORÍA -->
+  <div *ngIf="isAddingCategory" class="modal-overlay">
+    <div class="modal-content">
+      <h5>
+        Agregar Nueva Categoría a {{ groupcategory?.group_category_name }}
+      </h5>
+      <input
+        type="text"
+        [(ngModel)]="newCategory.name"
+        placeholder="Nombre de la categoría"
+      />
+      <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
+      <button (click)="saveNewCategory()">Guardar</button>
+      <button (click)="closeAddCategoryModal()" class="cancel-btn">
+        Cancelar
+      </button>
+    </div>
+  </div>
+
+  <!-- MODAL PARA EDITAR UNA CATEGORÍA -->
+  <div *ngIf="editingCategoryId" class="modal-overlay">
+    <div class="modal-content">
+      <h3>Editar Categoría</h3>
+      <input
+        type="text"
+        [(ngModel)]="editCategoryData.name"
+        placeholder="Nuevo nombre de la categoría"
+      />
+      <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
+      <button (click)="saveCategoryChanges()">Guardar</button>
+      <button (click)="closeEditCategoryModal()" class="cancel-btn">
+        Cancelar
+      </button>
+    </div>
+  </div>
+
+  <!-- MODAL DE CONFIRMACIÓN DE ELIMINACIÓN DE GRUPO DE CATEGORÍA -->
+  <div *ngIf="showDeleteGroupModal" class="modal-overlay">
+    <div class="modal-content">
+      <h3>Confirmación de Eliminación</h3>
+      <p>¿Estás seguro de que deseas eliminar este grupo?</p>
+      <div class="modal-buttons">
+        <button (click)="onConfirmDeleteGroupCategory()" class="confirm-button">
+          Sí, eliminar
+        </button>
+        <button (click)="onCancelDeleteGroupCategory()" class="cancel-button">
+          Cancelar
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL DE CONFIRMACIÓN PARA ELIMINAR CATEGORÍA -->
+  <div *ngIf="isDeletingCategory" class="modal-overlay">
+    <div class="modal-content">
+      <h3>Confirmación de Eliminación</h3>
+      <p>¿Estás seguro de que deseas eliminar esta categoría?</p>
+      <div class="modal-buttons">
+        <button (click)="confirmDeleteCategory()" class="confirm-button">
+          Sí, eliminar
+        </button>
+        <button (click)="closeDeleteCategoryModal()" class="cancel-button">
+          Cancelar
+        </button>
+      </div>
+    </div>
+  </div>
+  <!-- Modal de Alerta de Guardado -->
+  <div class="modal-alert" *ngIf="showAlertModal1">
+    <div class="modal-content-alert">
+      <h3>Cambios Guardados</h3>
+      <p>Los cambios se guardaron exitosamente.</p>
+      <button (click)="closeAlertModal1()">OK</button>
+    </div>
+  </div>
+
+  <!--Modal de Alerta de guardado con recarga de página-->
+  <div class="modal-alert" *ngIf="showAlertModal2">
+    <div class="modal-content-alert">
+      <h3>Cambios Guardados</h3>
+      <p>Los cambios se guardaron exitosamente.</p>
+      <button (click)="closeAlertModal2()">OK</button>
+    </div>
+  </div>
+</div>

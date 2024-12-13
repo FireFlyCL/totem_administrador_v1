@@ -1,0 +1,372 @@
+<div class="title">
+  <h1 style="font-family: Merriweather;">Colaboradores</h1>
+</div>
+
+<button class="left-button" (click)="goBack()">↩ Volver</button>
+
+<hr class="custom-line" />
+
+<div class="btn-prn-con">
+  <!-- Botón en Gestión de Imágenes -->
+
+  <button class="btn btn-primary" (click)="navigateToImages(idCategory)">
+    Gestión de Imágenes
+  </button>
+
+  <!-- Botón para subir el archivo seleccionado -->
+  <button class="btn btn-primary" (click)="openUploadModal()">
+    Subir Archivo de Colaboradores
+  </button>
+  <!-- BOTÓN PARA DESCARGAR ARCHIVO EXCEL -->
+  <button (click)="openDownloadConfirmationModal()" class="btn-prn">
+    Descargar Archivo Excel 
+  </button>
+
+  <!-- Botón para Crear Nuevo Colaborador -->
+  <button
+    type="button"
+    class="btn btn-primary"
+    (click)="openCreateCollaboratorModal()"
+    class="btn-prn"
+  >
+    Agregar Nuevo Colaborador
+  </button>
+</div>
+<!-- Modal para Crear un Nuevo Colaborador -->
+<div
+  id="createCollaboratorModal"
+  class="modal collaborator-modal"
+  *ngIf="isCreateModalOpen"
+>
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2>Crear Colaborador</h2>
+      <button type="button" class="close" (click)="closeCreateModal()">
+        ✖
+      </button>
+    </div>
+    <div class="modal-body">
+      <form (ngSubmit)="createCollaborator()">
+        <!-- Campos del Formulario de Creación -->
+        <div class="form-group">
+          <label for="first_name">Nombre</label>
+          <input
+            type="text"
+            id="first_name"
+            [(ngModel)]="selectedCollaborator.first_name"
+            name="first_name"
+            class="form-control"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="last_name">Apellido</label>
+          <input
+            type="text"
+            id="last_name"
+            [(ngModel)]="selectedCollaborator.last_name"
+            name="last_name"
+            class="form-control"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="emailName">Nombre de correo</label>
+          <input
+            type="text"
+            id="emailName"
+            [(ngModel)]="selectedCollaborator.emailName"
+            name="emailName"
+            class="form-control"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="emailDomain">Dominio de correo</label>
+          <select
+            id="emailDomain"
+            [(ngModel)]="selectedCollaborator.emailDomain"
+            name="emailDomain"
+            class="form-control"
+            required
+          >
+            <option value="alumno">duocuc.cl</option>
+            <option value="administrativo">duoc.cl</option>
+            <option value="docente">profesor.duoc.cl</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="role">Rol</label>
+          <input
+            type="text"
+            id="role"
+            [(ngModel)]="selectedCollaborator.role"
+            name="role"
+            class="form-control"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="image">Imagen</label>
+          <input
+            type="file"
+            id="image"
+            (change)="onImageSelected($event)"
+            class="form-control"
+            accept="image/*"
+          />
+        </div>
+
+        <!-- Botones -->
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">
+            Crear Colaborador
+          </button>
+          <button type="button" class="cancel-btn" (click)="closeCreateModal()">
+            Cancelar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<hr class="custom-line" />
+
+<!-- Lista de colaboradores filtrados por grupo de categoría -->
+<div class="container">
+  <div *ngFor="let collaborator of filteredCollaborators" class="card">
+    <!-- Contenido de cada tarjeta -->
+    <div class="col-info">
+      <img
+        class="profile"
+        [src]="getCollaboratorImageUrl(collaborator)"
+        alt="Imagen-del-colaborador"
+        *ngIf="collaborator.image_path"
+      />
+      <p><strong>Nombre:</strong></p>
+      <p class="inputed">
+        {{ collaborator.first_name }} {{ collaborator.last_name }}
+      </p>
+      <p><strong>Rol:</strong></p>
+      <p class="inputed">{{ collaborator.role }}</p>
+      <p><strong>Email:</strong></p>
+      <p class="lowercase-text">{{ collaborator.email }}</p>
+      <div class="btn-col">
+        <button (click)="openEditCollaboratorModal(collaborator)">
+          Editar 
+        </button>
+        <!-- BOTÓN PARA ELIMINAR COLABORADOR -->
+        <button
+          (click)="
+            openDeleteConfirmationModal(
+              collaborator.id_collaborator,
+              collaborator.id_collaborator_category
+            )
+          "
+          class="delete-btn"
+        >
+          Eliminar
+        </button>
+
+        <button
+          (click)="
+            toggleCollaboratorStatus(
+              collaborator.id_collaborator,
+              collaborator.id_collaborator_category
+            )
+          "
+        >
+          {{ collaborator.is_active ? "Activado 🟢" : "Desactivado 🔴" }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--MODALES-->
+
+<!-- MODAL DE CONFIRMACIÓN PARA ELIMINAR COLABORADOR -->
+<div *ngIf="showDeleteConfirmationModal" class="modal-overlay">
+  <div class="modal-content">
+    <h3>Confirmación de Eliminación</h3>
+    <p>¿Estás seguro de que deseas eliminar este colaborador?</p>
+    <div class="modal-buttons">
+      <button (click)="confirmDeleteCollaborator()" class="confirm-button">
+        Eliminar
+      </button>
+      <button (click)="closeDeleteConfirmationModal()" class="cancel-button">
+        Cancelar
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL PARA EDITAR COLABORADOR -->
+<div id="editCollaboratorModal" class="modal-overlay" *ngIf="isEditModalOpen">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2>Editar Colaborador</h2>
+      <button type="button" class="close" (click)="closeEditModal()">✖</button>
+    </div>
+    <div class="modal-body">
+      <form (ngSubmit)="updateCollaborator()">
+        <!-- Nombre y Apellido en la misma fila -->
+        <div class="edit-form-row">
+          <div class="edit-form-group">
+            <label for="edit_first_name">Nombre</label>
+            <input
+              type="text"
+              id="edit_first_name"
+              [(ngModel)]="selectedCollaborator.first_name"
+              name="first_name"
+              class="edit-form-control"
+              required
+            />
+          </div>
+          <div class="edit-form-group">
+            <label for="edit_last_name">Apellido</label>
+            <input
+              type="text"
+              id="edit_last_name"
+              [(ngModel)]="selectedCollaborator.last_name"
+              name="last_name"
+              class="edit-form-control"
+              required
+            />
+          </div>
+        </div>
+
+        <!-- Email y Rol en la misma fila -->
+        <div class="edit-form-row">
+          <div class="edit-form-group">
+            <label for="edit_email">Email</label>
+            <input
+              type="email"
+              id="edit_email"
+              [(ngModel)]="selectedCollaborator.email"
+              name="email"
+              class="edit-form-control"
+              required
+            />
+          </div>
+          <div class="edit-form-group">
+            <label for="edit_role">Rol</label>
+            <input
+              type="text"
+              id="edit_role"
+              [(ngModel)]="selectedCollaborator.role"
+              name="role"
+              class="edit-form-control"
+              required
+            />
+          </div>
+        </div>
+
+        <!-- Imagen -->
+        <div class="edit-form-group">
+          <label for="edit_image">Imagen</label>
+          <input
+            type="file"
+            id="edit_image"
+            (change)="onImageSelected($event)"
+            class="edit-form-control-img"
+            accept="image/*"
+          />
+        </div>
+
+        <!-- Vista previa de la imagen seleccionada -->
+        <div class="edit-image-preview" *ngIf="imagePreview">
+          <p>Vista previa:</p>
+          <img [src]="imagePreview" alt="Vista previa de la imagen" />
+        </div>
+
+        <!-- Botones -->
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+          <button type="button" class="cancel-btn" (click)="closeEditModal()">
+            Cancelar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL DE CONFIRMACIÓN PARA DESCARGAR COLABORADORES -->
+<div *ngIf="showDownloadConfirmationModal" class="modal-overlay">
+  <div class="modal-content">
+    <h3>Confirmación de Descarga</h3>
+    <p>¿Estás seguro de que deseas descargar el listado de colaboradores?</p>
+    <div class="modal-buttons">
+      <button (click)="confirmDownloadCollaborators()" class="confirm-button">
+        Sí, descargar
+      </button>
+      <button (click)="closeDownloadConfirmationModal()" class="cancel-button">
+        Cancelar
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL PARA SUBIR ARCHIVO -->
+<div *ngIf="isUploadModalOpen" class="modal-overlay">
+  <div class="modal-content">
+    <h2>Subir Archivo de Colaboradores</h2>
+    
+    <!-- Input para seleccionar el archivo -->
+    <input type="file" (change)="onExcelFileSelected($event)" accept=".xlsx" />
+    
+    <!-- Botón para confirmar la selección -->
+    <button class="btn btn-primary" (click)="openUploadConfirmationModal()">
+      Siguiente
+    </button>
+    
+    <!-- Botón para cancelar la subida -->
+    <button class="cancel-btn" (click)="closeUploadModal()">
+      Cancelar
+    </button>
+  </div>
+</div>
+
+<!-- MODAL DE CONFIRMACIÓN DE SUBIDA -->
+<div *ngIf="isUploadConfirmationModalOpen" class="modal-overlay">
+  <div class="modal-content">
+    <h3>Confirmación de Subida</h3>
+    <p>Subir este archivo reemplazará los datos existentes. ¿Estás seguro de que deseas continuar?</p>
+    
+    <div class="modal-buttons">
+      <button (click)="confirmUpload()" class="confirm-button">
+        Sí, subir
+      </button>
+      <button (click)="closeUploadConfirmationModal()" class="cancel-button">
+        Cancelar
+      </button>
+    </div>
+  </div>
+</div>
+<div >
+   <!-- Modal de Alerta de Guardado -->
+ <div class="modal-alert" *ngIf="showAlertModal1">
+  <div class="modal-content-alert">
+    <h3>Cambios Guardados</h3>
+    <p>Los cambios se guardaron exitosamente.</p>
+    <button (click)="closeAlertModal1()">OK</button>
+  </div>
+</div>
+
+<!--Modal de Alerta de guardado con recarga de página-->
+<div class="modal-alert" *ngIf="showAlertModal2">
+  <div class="modal-content-alert">
+    <h3>Cambios Guardados</h3>
+    <p>Los cambios se guardaron exitosamente.</p>
+    <button (click)="closeAlertModal2()">OK</button>
+  </div>
+</div>
+</div>
+

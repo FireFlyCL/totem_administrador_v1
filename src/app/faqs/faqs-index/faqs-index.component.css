@@ -1,0 +1,400 @@
+@font-face {
+  font-family: 'Merriweather';
+  src: url('/assets/Merriweather/Merriweather-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Merriweather';
+  src: url('/assets/Merriweather/Merriweather-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Merriweather';
+  src: url('/assets/Merriweather/Merriweather-Italic.ttf') format('truetype');
+  font-weight: 400;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Merriweather';
+  src: url('/assets/Merriweather/Merriweather-BoldItalic.ttf') format('truetype');
+  font-weight: 700;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Merriweather';
+  src: url('/assets/Merriweather/Merriweather-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Merriweather';
+  src: url('/assets/Merriweather/Merriweather-LightItalic.ttf') format('truetype');
+  font-weight: 300;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Merriweather';
+  src: url('/assets/Merriweather/Merriweather-Black.ttf') format('truetype');
+  font-weight: 900;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Merriweather';
+  src: url('/assets/Merriweather/Merriweather-BlackItalic.ttf') format('truetype');
+  font-weight: 900;
+  font-style: italic;
+}
+
+* {
+  font-family: 'Merriweather';
+}
+
+i {
+  font-family: 'Font Awesome 5 Free'; /* Familia de Font Awesome */
+  font-weight: 900; /* Peso de los iconos (puede variar según la versión) */
+}
+
+
+.faq-table {
+  background-color: #f5f5f5;
+  padding: 20px;
+  border-radius: 10px;
+  font-family: Arial, sans-serif;
+}
+
+.faq-buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.left-buttons {
+  display: flex;
+  flex-direction: column;
+}
+
+.center-content {
+  display: flex;
+  align-items: center;
+  gap: 15px; /* Espacio entre "Agregar Pregunta" y el campo de búsqueda */
+}
+
+.search-bar input[type="text"] {
+  padding: 12px;
+  width: 700px;
+  border-radius: 5px;
+  border: 2px solid #FFB800;
+  margin-top: 55px;
+}
+
+/* Botones generales */
+.btn {
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 0.9em;
+  color: #fff;
+}
+
+.btn-primary {
+  background-color: #333;
+}
+
+.btn-secondary {
+  background-color: #FFB800;
+  color: #fff;
+}
+
+.right-buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+}
+
+.right-buttons .top-row {
+  display: flex;
+  gap: 10px;
+}
+
+/* Estilos para la tabla */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+table th,
+table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+table th {
+  background-color: #e0e0e0;
+  font-weight: bold;
+}
+
+/* Transición suave para las filas */
+table tbody tr {
+  transition: transform 0.2s ease-in-out, opacity 0.2s ease-in-out;
+}
+
+/* Estilo del elemento mientras es arrastrado */
+.cdk-drag-preview {
+  background-color: #f0f0f0;
+  border: 1px dashed #333;
+  padding: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  opacity: 0.9;
+  border-radius: 5px;
+}
+
+/* Estilo para el espacio dejado por el elemento arrastrado */
+.cdk-drag-placeholder {
+  opacity: 0.5;
+  background-color: #e0e0e0;
+  border-radius: 5px;
+}
+
+/* Efecto de sombra para cada fila cuando se ordena */
+table tbody tr.cdk-drag {
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Suavizar la animación de entrada/salida al cambiar filas */
+table tbody tr {
+  transition: all 0.3s ease;
+}
+
+.drag-handle {
+  cursor: move;
+  text-align: center;
+}
+
+/* Botón de alternar estado */
+.btn-toggle,
+.btn-edit,
+.btn-delete {
+  padding: 8px 12px; /* Ajuste de padding para igualar el tamaño */
+  font-size: 0.9rem; /* Consistencia en el tamaño de fuente */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  color: white;
+  text-align: center;
+  transition: background-color 0.3s ease;
+}
+
+.btn-toggle.active {
+  background-color: #4CAF50; /* Verde para "Activo" */
+}
+
+.btn-toggle.inactive {
+  background-color: #f44336; /* Rojo para "Inactivo" */
+}
+
+/* Botón de editar */
+.btn-edit {
+  background-color: #666666; /* Verde para el botón de Editar */
+}
+
+.btn-edit i {
+  margin-right: 4px;
+}
+
+.btn-edit:hover {
+  background-color: #666666; /* Un poco más oscuro al hacer hover */
+}
+
+/* Botón de eliminar */
+.btn-delete {
+  background-color: #dc3545; /* Rojo para el botón de Eliminar */
+}
+
+.btn-delete i {
+  margin-right: 4px;
+}
+
+.btn-delete:hover {
+  background-color: #c82333; /* Un poco más oscuro al hacer hover */
+}
+
+/* Modal Styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: #fff;
+  padding: 30px;
+  border-radius: 12px;
+  width: 420px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  font-family: Arial, sans-serif;
+}
+
+.modal-content h2 {
+  margin-bottom: 20px;
+  font-size: 1.5em;
+  color: #333;
+}
+
+.modal-content label {
+  display: block;
+  font-weight: bold;
+  margin: 10px 0 5px;
+  font-size: 0.9em;
+  color: #555;
+  text-align: left;
+}
+
+.modal-content .form-control {
+  width: 90%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 0.95em;
+  color: #333;
+  margin: 0 auto;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.modal-content .btn {
+  padding: 10px 20px;
+  font-size: 0.9em;
+  border-radius: 6px;
+  cursor: pointer;
+  width: 48%;
+}
+
+.modal-content .btn-primary {
+  background-color: #ffc107;
+}
+
+.modal-content .btn-secondary {
+  background-color: #6c757d;
+}
+
+/* Ajustes adicionales */
+.bottom-row {
+  margin-top: 20px;
+}
+
+.left-buttons .add-question,
+.right-buttons .top-row {
+  margin-top: 20px;
+}
+
+/* Mensajes de éxito y error */
+.upload-message.success {
+  color: rgb(0, 0, 0);
+  margin-top: 10px;
+}
+
+.upload-message.error {
+  color: rgb(0, 0, 0);
+  margin-top: 10px;
+}
+
+.modal-body input[type="file"] {
+  padding: 5px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+/* Contenedor del campo de búsqueda */
+.search-container {
+  position: relative;
+  width: 100%;
+  max-width: 600px; /* Ajusta el tamaño máximo según sea necesario */
+  margin-top: 55px; /* Alineación vertical si es necesario */
+}
+
+/* Campo de entrada de búsqueda */
+.search-container input[type="text"] {
+  width: 100%;
+  padding: 12px 2.5rem 12px 12px; /* Espacio a la derecha para el icono */
+  border-radius: 5px;
+  border: 2px solid #FFB800;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+/* Estilo del icono de búsqueda dentro del campo */
+.search-container .search-icon {
+  position: absolute;
+  right: 15px; /* Ajusta este valor para mover el icono más a la derecha */
+  top: 50%;
+  transform: translateY(-50%);
+  color: #999;
+  font-size: 1.2rem;
+  pointer-events: none;
+}
+
+.custom-file-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px; /* Espacio entre el botón y el nombre del archivo */
+}
+
+.custom-file-input {
+  display: none; /* Oculta el input real */
+}
+
+.custom-file-label {
+  background-color: white; /* Fondo blanco */
+  color: black; /* Texto negro */
+  border: 2px solid black; /* Borde negro */
+  padding: 10px 20px; /* Padding para dar un diseño espacioso */
+  border-radius: 25px; /* Bordes redondeados */
+  font-size: 1rem; /* Tamaño del texto */
+  font-weight: bold; /* Texto en negrita */
+  text-align: center; /* Centrar el texto */
+  cursor: pointer; /* Cambia el cursor al estilo "clickable" */
+  display: inline-flex; /* Asegura que se centre el contenido */
+  align-items: center; /* Centra verticalmente el texto e iconos */
+  justify-content: center; /* Centra horizontalmente el texto e iconos */
+  transition: all 0.3s ease; /* Suaviza las transiciones */
+}
+
+.custom-file-label:hover {
+  background-color: #f0f0f0; /* Cambia el fondo al pasar el mouse */
+}
+
+.file-name {
+  font-size: 0.9rem;
+  color: #666666;
+  font-style: italic;
+}
+

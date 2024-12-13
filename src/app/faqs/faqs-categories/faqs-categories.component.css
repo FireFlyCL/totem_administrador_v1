@@ -1,0 +1,405 @@
+@font-face {
+  font-family: 'Merriweather';
+  src: url('/assets/Merriweather/Merriweather-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Merriweather';
+  src: url('/assets/Merriweather/Merriweather-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Merriweather';
+  src: url('/assets/Merriweather/Merriweather-Italic.ttf') format('truetype');
+  font-weight: 400;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Merriweather';
+  src: url('/assets/Merriweather/Merriweather-BoldItalic.ttf') format('truetype');
+  font-weight: 700;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Merriweather';
+  src: url('/assets/Merriweather/Merriweather-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Merriweather';
+  src: url('/assets/Merriweather/Merriweather-LightItalic.ttf') format('truetype');
+  font-weight: 300;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Merriweather';
+  src: url('/assets/Merriweather/Merriweather-Black.ttf') format('truetype');
+  font-weight: 900;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Merriweather';
+  src: url('/assets/Merriweather/Merriweather-BlackItalic.ttf') format('truetype');
+  font-weight: 900;
+  font-style: italic;
+}
+
+* {
+  font-family: 'Merriweather';
+}
+
+i {
+  font-family: 'Font Awesome 5 Free'; /* Familia de Font Awesome */
+  font-weight: 900; /* Peso de los iconos (puede variar según la versión) */
+}
+
+.title-container {
+  padding: 5px 15px; /* Ajuste de padding para reducir la altura */
+  border-radius: 15px;
+  text-align: center; /* Texto alineado a la izquierda */
+  font-size: 2.5rem; /* Tamaño del texto */
+  font-weight: 900;
+  width: 100%; /* Ocupa todo el ancho disponible */
+  max-width: 1200px; /* Ancho máximo para alinear con el resto del contenido */
+  margin: 20px 0; /* Espacio en la parte superior e inferior */
+  display: block; /* Asegura que ocupe toda la fila */
+  clear: both; /* Limpia flotación para evitar conflicto con otros elementos */
+}
+
+.title-container h1 {
+  color: #000000; /* Texto en blanco */
+  font-size: 2.5rem; /* Ajuste de tamaño */
+  font-weight: 900;
+  margin: 0;
+}
+
+/* Eliminamos la línea debajo del título */
+.title-container h1::after {
+  display: none;
+}
+
+.category-number {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  color: rgb(0, 0, 0);
+  font-size: 0.8rem;
+  font-weight: bold;
+  padding: 2px 6px;
+  border-radius: 3px;
+}
+
+.category-container {
+  background-color: #FFFFFF;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  border-radius: 15px;
+  height: 95vh;
+}
+
+.actions {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1200px; /* Asegura que se alineen con el ancho de las cards */
+  margin: 40px 0 20px 0; /* Aumenta el margen superior para bajarlos */
+  padding: 0 20px; /* Añade padding para alinearlos con las cards */
+}
+
+.left-actions {
+  margin-right: auto; /* Alinea el botón de agregar categoría a la izquierda */
+}
+
+.right-actions {
+  display: flex;
+  gap: 10px;
+  margin-left: auto; /* Alinea los botones de subir y descargar Excel a la derecha */
+}
+
+.left-actions button {
+  background-color: #FFA500; /* Color amarillo para "Agregar Categoría" */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s;
+}
+
+.right-actions button {
+  background-color: #000000; /* Color negro para "Subir" y "Descargar Excel" */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s;
+}
+
+.left-actions button:hover {
+  background-color: #e59500; /* Hover en amarillo oscuro para "Agregar Categoría" */
+}
+
+.right-actions button:hover {
+  background-color: #333333; /* Hover en gris oscuro para "Subir" y "Descargar Excel" */
+}
+.categories-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Ajusta las columnas de manera adaptable */
+  gap: 20px; /* Espaciado entre cards */
+  width: 100%;
+  max-width: 1200px; /* Controla el ancho máximo del contenedor */
+  justify-items: center; /* Centra las cards dentro de cada columna */
+  align-items: start; /* Asegura que las cards se alineen al inicio de las filas */
+  align-content: start; /* Evita que las cards se acumulen hacia abajo */
+  padding: 10px; /* Espaciado interior para evitar que las cards toquen los bordes */
+  min-height: 500px; /* Espacio mínimo vertical para evitar colisiones */
+}
+
+.category-card {
+  border: 2px solid #FFA500; /* Borde naranja */
+  border-radius: 8px; /* Bordes redondeados */
+  padding: 20px; /* Espaciado interno */
+  width: 100%; /* Toma todo el ancho disponible */
+  max-width: 250px; /* Ancho máximo de la card */
+  text-align: center; /* Centra el texto dentro de la card */
+  background-color: white; /* Fondo blanco */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra para darle profundidad */
+  position: relative; /* Necesario para cdkDrag */
+  z-index: 1; /* Asegura que las cards se superpongan correctamente al arrastrar */
+  transition: transform 0.3s ease; /* Suaviza el efecto al arrastrar */
+}
+
+.cdk-drag-preview {
+  transform: scale(1.1); /* Hace más grande la card mientras se arrastra */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Sombra más marcada */
+  border-radius: 8px; /* Mantiene los bordes redondeados */
+  z-index: 1000; /* Lleva la card al frente mientras se arrastra */
+}
+
+
+
+.category-card h2 {
+  margin: 10px 0;
+  font-size: 1.2rem;
+  color: #333;
+}
+
+.category-card .delete-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #FFA500;
+  color: white;
+  border: none;
+  border-radius: 10%;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+}
+
+.category-card button {
+  background-color: #FFA500;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+  font-size: 1rem;
+  transition: background-color 0.3s;
+}
+
+.category-card button:hover {
+  background-color: #e59500;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+/* Modal content ajustes */
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 400px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.modal-content h2 {
+  margin-bottom: 20px;
+  font-size: 1.8rem; /* Ajuste del tamaño del título */
+  color: #333;
+}
+
+/* Contenedor del input y el label */
+.modal-content label {
+  display: block;
+  text-align: left; /* Alinear el texto del label a la izquierda */
+  font-weight: bold;
+  font-size: 1rem;
+  margin-bottom: 10px;
+  color: #555;
+}
+
+.modal-content input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px; /* Espacio entre el input y los botones */
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  box-sizing: border-box; /* Asegura que el padding no desborde */
+  outline: none; /* Elimina el borde azul al hacer clic */
+  transition: border-color 0.3s;
+}
+
+.modal-content input[type="text"]:focus {
+  border-color: #FFA500; /* Color de borde al enfocar */
+  box-shadow: 0 0 5px rgba(255, 165, 0, 0.5); /* Resaltado */
+}
+
+.modal-content button {
+  background-color: #FFA500;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 5px;
+  font-size: 1rem;
+  transition: background-color 0.3s;
+}
+
+.modal-content button:hover {
+  background-color: #e59500;
+}
+
+.modal-content .cancel-button {
+  background-color: #666666;
+  color: #ffffff;
+}
+
+.modal-content .cancel-button:hover {
+  background-color: #444444;
+}
+
+/* Personalización del input de archivo */
+#fileUpload {
+  opacity: 0;
+  position: absolute;
+  z-index: -1;
+}
+
+/* Contenedor centrado */
+.custom-file-container {
+  display: flex;
+  flex-direction: column; /* Coloca los elementos en columna */
+  align-items: center; /* Centra horizontalmente */
+  gap: 5px; /* Espaciado entre el botón y el nombre del archivo */
+}
+
+/* Estilo para el label de "Seleccionar archivo" */
+.custom-file-label {
+  background-color: white; /* Fondo blanco */
+  color: black; /* Texto negro */
+  border: 2px solid black; /* Borde negro */
+  padding: 5px 15px; /* Padding ajustado */
+  border-radius: 15px; /* Bordes redondeados */
+  font-size: 0.9rem; /* Tamaño del texto ajustado */
+  font-weight: 500; /* Peso del texto más ligero */
+  text-align: center; /* Centrar el texto */
+  cursor: pointer; /* Cambia el cursor al estilo "clickable" */
+  display: inline-flex; /* Asegura que se centre el contenido */
+  align-items: center; /* Centra verticalmente el texto e iconos */
+  justify-content: center; /* Centra horizontalmente el texto e iconos */
+  transition: all 0.3s ease; /* Suaviza las transiciones */
+}
+
+
+/* Efecto focus para el label */
+.custom-file-label:focus {
+  outline: none; /* Elimina el borde por defecto */
+  box-shadow: 0 0 5px black; /* Resaltado con sombra */
+}
+
+/* Estilo para el nombre del archivo */
+.file-name {
+  font-size: 0.8rem; /* Tamaño del texto reducido */
+  color: #666666; /* Color gris claro */
+  font-style: italic; /* Estilo cursivo para diferenciar */
+  text-align: center; /* Centra el texto del nombre del archivo */
+}
+
+
+.cancel-button {
+  background-color: #666666; /* Cambia este color por el que desees */
+  color: white; /* Color del texto o icono */
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s;
+}
+
+.cancel-button:hover {
+  background-color: #4D4D4D; /* Color al pasar el cursor, ajusta si es necesario */
+}
+
+.order-message {
+  padding: 5px 10px; /* Disminuye el padding vertical y horizontal */
+  text-align: left; /* Texto alineado a la izquierda */
+  color: #000000; /* Texto en blanco */
+  font-size: 12; /* Reduce el tamaño de la fuente */
+  font-weight: 500;
+  width: 93%; /* Ocupa todo el ancho disponible */
+  margin: 10px 3%; /* Reduce el margen superior e inferior */
+  float: left; /* Alineación a la izquierda */
+}
+
+
+.upload-message {
+  margin-top: 10px;
+  font-size: 1rem;
+  text-align: center;
+}
+
+.upload-message.success {
+  color: #4D4D4D;
+}
+
+.upload-message.error {
+  color: #4D4D4D;
+ 
+}
