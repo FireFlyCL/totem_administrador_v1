@@ -1,0 +1,103 @@
+<div class="users-list-container">
+  <h2 class="tittle">Administrador de Usuarios</h2>
+  <!-- Botón para invitar a un nuevo usuario -->
+  <button class="invite-btn" (click)="openInviteModal()" *ngIf="hasPermission([10])">Invitar Nuevo Usuario</button>
+
+  <!-- Modal para invitar un nuevo usuario -->
+  <div *ngIf="showInviteModal" class="modal-backdrop">
+    <div class="modal">
+      <h3>Invitar a Nuevo Usuario</h3>
+      <form (ngSubmit)="inviteUser()">
+        <label for="domain">Seleccionar Dominio</label>
+        <select id="domain" [(ngModel)]="selectedDomain" name="domain" required>
+          <option value="duoc.cl">duoc.cl</option>
+          <option value="duocuc.cl">duocuc.cl</option>
+          <option value="profesor.duoc.cl">profesor.duoc.cl</option>
+        </select>
+
+        <label for="username">Nombre de Usuario</label>
+        <input type="text" id="username" [(ngModel)]="username" name="username" required />
+
+        <label for="confirmUsername">Confirmar Nombre de Usuario</label>
+        <input type="text" id="confirmUsername" [(ngModel)]="confirmUsername" name="confirmUsername" required />
+
+        <div *ngIf="username && confirmUsername && username !== confirmUsername" class="error-message">
+          Los nombres de usuario no coinciden.
+        </div>
+
+        <div *ngIf="isLoading" class="loading-message">Cargando...</div>
+
+        <div class="modal-actions">
+          <button type="submit" [disabled]="username !== confirmUsername || isLoading" class="send-btn">
+            Enviar
+          </button>
+          <button type="button" (click)="closeInviteModal()" class="cancel-btn" [disabled]="isLoading">
+            Cancelar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Filtros de búsqueda -->
+  <div class="filter-container">
+    <input type="text" placeholder="Buscar por nombre de usuario" [(ngModel)]="searchQuery" (input)="applyFilters()" class="filter-input" />
+
+    <select [(ngModel)]="filterStatus" (change)="applyFilters()" class="filter-select">
+      <option value="">Todos</option>
+      <option value="active">Activos</option>
+      <option value="blocked">Bloqueados</option>
+    </select>
+
+    <select [(ngModel)]="filterPermission" (change)="applyFilters()" class="filter-select">
+      <option value="">Todos los permisos</option>
+      <option *ngFor="let permission of allPermissions" [value]="permission.id_permission">{{ permission.permission_name }}</option>
+    </select>
+  </div>
+
+  <!-- Tabla de usuarios -->
+  <div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th style="width: 300px;">Correo Electrónico</th>
+          <th style="width: 70px;">Estado</th>
+          <th>Permisos</th>
+          <th style="width: 120px;">Acciones</th>
+          <th style="width: 70px;">Eliminar</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of filteredUsers" [ngClass]="{ 'blocked': user.is_blocked }">
+          <td>{{ user.id_user }}</td>
+          <td>{{ user.username }}</td>
+          <td>{{ user.is_blocked ? 'Bloqueado' : 'Activo' }}</td>
+          <td>
+            <div class="permissions-container">
+              <div *ngFor="let perm of user.permissions" [style.background-color]="getPermissionColor(perm)">
+                {{ perm.permission_name }}
+              </div>
+            </div>
+          </td>
+          <td>
+            <button class="action-btn block-btn" *ngIf="hasPermission([11]) && user.id_user !== currentUserId && user.id_user !== 1" (click)="toggleBlockUser(user.id_user, user.is_blocked)">
+              {{ user.is_blocked ? 'Desbloquear' : 'Bloquear' }}
+            </button>
+            <button class="action-btn edit-btn" *ngIf="hasPermission([17]) && user.id_user !== currentUserId && user.id_user !== 1" (click)="editPermissions(user.id_user, user.username)">
+              Ver Permisos
+            </button>
+          </td>
+          <td>
+            <div *ngIf="hasPermission([12])" class="delete-container">
+              <input type="checkbox" [(ngModel)]="user.canDelete" [disabled]="(user.id_user === currentUserId || user.id_user === 1)" (change)="toggleDelete(user, $event)" />
+              <button class="delete-btn" (click)="confirmDelete(user)" [disabled]="(!user.canDelete || user.id_user === currentUserId || user.id_user === 1)">
+                <i class="fa fa-trash"></i>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

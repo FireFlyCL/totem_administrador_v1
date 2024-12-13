@@ -1,0 +1,114 @@
+<div class="stats-container">
+    <h1>Estadísticas del Sistema</h1>
+    <div class="global-stats-container">
+      <div class="charts-container">
+        <!-- Contenedor del Gráfico de Líneas -->
+        <div class="chart-container">
+          <canvas *ngIf="lineChartData?.labels?.length" #lineChart baseChart 
+            [data]="lineChartData"
+            [options]="lineChartOptions"
+            [type]="'line'">
+          </canvas>
+        </div>
+    
+        <!-- Sección de Filtros y Resúmenes -->
+        <div class="clicks-group-wrapper">
+          <div class="date-slider-container subconte">
+            <h2>Filtro Fechas</h2>
+            
+            <!-- Campos de fecha alineados con guión entre ellos -->
+            <div class="date-range">
+              <div class="date-field">
+                <label for="startDate">Mes Inicio</label>
+                <input
+                  type="date"
+                  [(ngModel)]="startDate"
+                  id="startDate"
+                  placeholder="mm-yyyy"
+                />
+              </div>
+              <span class="date-separator">—</span> <!-- Guión entre las fechas -->
+              <div class="date-field">
+                <label for="endDate">Mes Fin</label>
+                <input
+                  type="date"
+                  [(ngModel)]="endDate"
+                  id="endDate"
+                  placeholder="mm-yyyy"
+                />
+              </div>
+            </div>
+          
+            <!-- Botón primario de aplicar filtros -->
+            <a class="btn btn-primary" (click)="applyFilters()">
+              Aplicar Filtros
+            </a>
+          </div>
+          
+    
+          <!-- Bloque con icono para el total de clicks -->
+          <div class="clicks-group-data-with-icon subconte">
+            <img src="assets/globalicon.png" alt="Icono Total de Clicks" class="clicks-icon">
+            <div class="clicks-total-text">
+              <p class="clicks-amount">{{ totalClicks }}</p>
+              <h3 class="clicks-title">Total de Visitas</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+     <h2>Estadísticas por Categoría</h2>
+
+
+    <div class="stats-grid">
+      <!-- Tarjeta de Administración -->
+      <div class="stats-card">
+        <h3>Administración</h3>
+        <button class="stats-button" (click)="goToAdmin()">Ver Estadísticas</button>
+        <!-- Alternativa con routerLink -->
+        <!-- <button class="stats-button" [routerLink]="['/stats/admin']">Ver Estadísticas</button> -->
+      </div>
+  
+      <!-- Tarjeta de Colaboradores -->
+      <div class="stats-card">
+        <h3>Colaboradores</h3>
+        <button class="stats-button" (click)="goToCollaborator()">Ver Estadísticas</button>
+        <!-- Alternativa con routerLink -->
+        <!-- <button class="stats-button" [routerLink]="['/stats/collaborator']">Ver Estadísticas</button> -->
+      </div>
+  
+      <!-- Tarjeta de Preguntas Frecuentes -->
+      <div class="stats-card">
+        <h3>Preguntas Frecuentes</h3>
+        <button class="stats-button" (click)="goToFaqs()">Ver Estadísticas</button>
+        <!-- Alternativa con routerLink -->
+        <!-- <button class="stats-button" [routerLink]="['/stats/faqs']">Ver Estadísticas</button> -->
+      </div>
+  
+      <!-- Tarjeta de Información -->
+      <div class="stats-card">
+        <h3>Información</h3>
+        <button class="stats-button" (click)="goToInformation()">Ver Estadísticas</button>
+        <!-- Alternativa con routerLink -->
+        <!-- <button class="stats-button" [routerLink]="['/stats/information']">Ver Estadísticas</button> -->
+      </div>
+  
+      <!-- Tarjeta de Mapas -->
+      <div class="stats-card">
+        <h3>Mapas</h3>
+        <button class="stats-button" (click)="goToMaps()">Ver Estadísticas</button>
+        <!-- Alternativa con routerLink -->
+        <!-- <button class="stats-button" [routerLink]="['/stats/maps']">Ver Estadísticas</button> -->
+      </div>
+  
+      <!-- Tarjeta de Noticias -->
+      <div class="stats-card">
+        <h3>Noticias</h3>
+        <button class="stats-button" (click)="goToNews()">Ver Estadísticas</button>
+        <!-- Alternativa con routerLink -->
+        <!-- <button class="stats-button" [routerLink]="['/stats/news']">Ver Estadísticas</button> -->
+      </div>
+    </div>
+  </div>
+  

@@ -1,0 +1,65 @@
+<div class="sidebar" [class.expanded]="isSidebarExpanded" (mouseenter)="toggleSidebar(true)" (mouseleave)="toggleSidebar(false)">
+  <!-- Perfil del usuario con menú desplegable hacia abajo solo con click -->
+<div class="user">
+  <div class="user-profile" (click)="toggleProfileMenu()">
+    <span class="user-profile-icon">account_circle</span>
+    <span class="user-text">Mi Usuario</span>
+    <div *ngIf="isProfileMenuOpen" class="profile-menu">
+      <button class="btn-totem-default btn-totem-menu" (click)="navigateTo('profile/my-profile')">
+        <span class="btn-totem-default-icon">person</span>
+        <span class="btn-totem-default-text">Perfil</span>
+      </button>
+      <button class="btn-totem-default btn-totem-menu" (click)="navigateTo('profile/change-password')">
+        <span class="btn-totem-default-icon">vpn_key</span>
+        <span class="btn-totem-default-text">Cambiar Contraseña</span>
+      </button>
+      <button class="btn-totem-default btn-totem-menu" (click)="logout()">
+        <span class="btn-totem-default-icon">logout</span>
+        <span class="btn-totem-default-text">Cerrar Sesión</span>
+      </button>
+    </div>
+  </div>
+</div>
+  <!-- Menú principal con iconos -->
+  <div class="menu">
+    <button class="btn-totem-default btn-totem-menu" (click)="navigateTo('menu')">
+      <span class="btn-totem-default-icon">home</span>
+      <span class="btn-totem-default-text">Menú</span>
+    </button>
+
+    <button *ngIf="hasPermission('users')" class="btn-totem-default btn-totem-menu" (click)="navigateTo('users')">
+      <span class="btn-totem-default-icon">group</span>
+      <span class="btn-totem-default-text">Usuarios</span>
+    </button>
+
+    <button *ngIf="hasPermission('stats')" class="btn-totem-default btn-totem-menu" (click)="navigateTo('stats')">
+      <span class="btn-totem-default-icon">show_chart</span>
+      <span class="btn-totem-default-text">Estadísticas</span>
+    </button>
+
+    <button class="btn-totem-default btn-totem-menu" (click)="navigateTo('news')">
+      <span class="btn-totem-default-icon">article</span>
+      <span class="btn-totem-default-text">Noticias</span>
+    </button>
+
+    <button class="btn-totem-default btn-totem-menu" (click)="navigateTo('maps')">
+      <span class="btn-totem-default-icon">map</span>
+      <span class="btn-totem-default-text">Mapas</span>
+    </button>
+
+    <button class="btn-totem-default btn-totem-menu" (click)="navigateTo('information')">
+      <span class="btn-totem-default-icon">info</span>
+      <span class="btn-totem-default-text">Áreas de Servicios</span>
+    </button>
+
+    <button class="btn-totem-default btn-totem-menu" (click)="navigateTo('faqs')">
+      <span class="btn-totem-default-icon">help</span>
+      <span class="btn-totem-default-text">Preguntas Frecuentes</span>
+    </button>
+
+    <button class="btn-totem-default btn-totem-menu" (click)="navigateTo('collaborator')">
+      <span class="btn-totem-default-icon">manage_accounts</span>
+      <span class="btn-totem-default-text">Colaboradores</span>
+    </button>
+  </div>
+</div>

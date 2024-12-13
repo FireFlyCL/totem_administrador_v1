@@ -1,0 +1,313 @@
+@font-face {
+  font-family: 'Merriweather';
+  src: url('/assets/Merriweather/Merriweather-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Merriweather';
+  src: url('/assets/Merriweather/Merriweather-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Merriweather';
+  src: url('/assets/Merriweather/Merriweather-Italic.ttf') format('truetype');
+  font-weight: 400;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Merriweather';
+  src: url('/assets/Merriweather/Merriweather-BoldItalic.ttf') format('truetype');
+  font-weight: 700;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Merriweather';
+  src: url('/assets/Merriweather/Merriweather-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Merriweather';
+  src: url('/assets/Merriweather/Merriweather-LightItalic.ttf') format('truetype');
+  font-weight: 300;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Merriweather';
+  src: url('/assets/Merriweather/Merriweather-Black.ttf') format('truetype');
+  font-weight: 900;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Merriweather';
+  src: url('/assets/Merriweather/Merriweather-BlackItalic.ttf') format('truetype');
+  font-weight: 900;
+  font-style: italic;
+}
+
+
+* {
+  font-family: 'Merriweather'
+}
+
+/* Contenedor principal de la sección de estadísticas */
+.stats-container {
+  text-align: center;
+  padding: 20px;
+  background-color: #FFFFFF;
+  border-radius: 15px;
+}
+
+/* Estilo de la cuadrícula */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Aumenta el ancho mínimo de las tarjetas */
+  gap: 20px;
+  align-items: start; /* Asegura que todas las tarjetas se alineen desde el inicio */
+}
+
+/* Estilo de las tarjetas de estadísticas */
+.stats-card {
+  background-color: #ffffff; /* Fondo gris claro (Duoc UC) */
+  border: 1px solid #FFB800;
+  padding: 20px; /* Aumentar el padding para dar más espacio interno */
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+  transition: transform 0.2s; /* Transición para el efecto hover */
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Distribuye el contenido dentro de la tarjeta */
+  align-items: center; /* Centra el contenido horizontalmente */
+  min-height: 100px; /* Altura mínima ajustada */
+  max-width: 250px; /* Ajusta el ancho máximo para que sean más anchas */
+}
+
+/* Efecto hover para las tarjetas */
+.stats-card:hover {
+  transform: scale(1.05); /* Escala la tarjeta en hover */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Aumenta la sombra en hover */
+}
+
+/* Título de cada tarjeta */
+.stats-card h3 {
+  margin: 10px 0;
+  color: #1A1A1A; /* Color negro de la paleta principal */
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center; /* Asegura que el texto esté centrado */
+  white-space: normal; /* Permite que los títulos largos ocupen varias líneas */
+  word-wrap: break-word; /* Ajusta el texto para que no se salga de la tarjeta */
+}
+
+/* Estilo del botón */
+.stats-button {
+  margin-top: 15px;
+  padding: 8px 16px; /* Ajustar tamaño del botón */
+  background-color: #FFB800; /* Amarillo (orange-duoc) */
+  color: #1A1A1A; /* Color de texto en negro para contraste */
+  border: none; /* Sin borde */
+  border-radius: 4px; /* Bordes redondeados */
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s; /* Transición para el color de fondo en hover */
+}
+
+/* Efecto hover para el botón */
+.stats-button:hover {
+  background-color: #FF9900; /* Un tono más oscuro de amarillo para el hover */
+  color: #FFFFFF; /* Cambia el color del texto a blanco en hover */
+}
+
+/* Fondo oscuro (opcional para secciones adicionales) */
+.bg-dark {
+  background-color: #1A1A1A; /* Fondo negro */
+  color: #FFFFFF; /* Texto en blanco */
+}
+
+/* Fondo blanco (para contrastar elementos si es necesario) */
+.bg-white {
+  background-color: #FFFFFF;
+  color: #1A1A1A; /* Texto en negro */
+}
+
+/* Fondo gris claro */
+.bg-grey {
+  background-color: #666666;
+  color: #FFFFFF;
+}
+
+/* estadisticas */
+
+.global-stats-container {
+  padding: 20px;
+  font-family: 'Merriweather';
+  background-color: #FFFFFF;
+  color: #1A1A1A;
+}
+
+h2.stats-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #1A1A1A;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.date-slider-container {
+  padding: 20px;
+  font-family: 'Merriweather'; 
+  background-color: #FFFFFF;
+  color: #1A1A1A;
+  border: 1px solid #EEEEEE;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  height: 40%;
+}
+
+.date-slider-container h2 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.date-range {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.date-field {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 40%;
+}
+
+.date-field label {
+  font-size: 14px;
+  color: #1A1A1A;
+  margin-bottom: 4px;
+}
+
+.date-field input[type="date"] {
+  width: 100%;
+  padding: 6px;
+  font-size: 14px;
+  color: #333;
+  border: 1px solid #CCCCCC;
+  border-radius: 4px;
+  text-align: center;
+}
+
+.date-separator {
+  font-size: 20px;
+  color: #1A1A1A;
+  margin-top: 15px;
+}
+
+/* Botón de aplicar filtros */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 20px;
+  font-size: 12px;
+  font-weight: bold;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: #000;
+  background-color: #fff;
+  border: 2px solid #000;
+  border-radius: 50px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  margin-top: 15px;
+}
+
+.btn:hover {
+  background-color: #f0f0f0;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Contenedor del gráfico y filtros */
+.charts-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  width: 100%;
+  height: 500px;
+}
+
+.chart-container {
+  background-color: #FFFFFF;
+  padding: 10px;
+  border: 1px solid #EEEEEE;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 70%;
+
+}
+
+/* Contenedor de filtros y datos */
+.clicks-group-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 30%;
+}
+
+/* Estilos para el total de clicks */
+.clicks-group-data-with-icon {
+  background-color: #FFFFFF;
+  border: 1px solid #EEEEEE;
+  border-radius: 8px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  margin-top: 5px;
+  height: 60%;
+}
+
+
+.clicks-icon {
+  width: 28px;
+  height: 28px;
+  margin-right: 10px;
+}
+
+.clicks-total-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.clicks-amount {
+  font-size: 30px;
+  font-weight: bold;
+  color: #1A1A1A;
+  margin: 0;
+}
+
+.clicks-title {
+  font-size: 20px;
+  color: #1A1A1A;
+  margin: 0;
+}

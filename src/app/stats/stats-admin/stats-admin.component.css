@@ -1,0 +1,269 @@
+@font-face {
+  font-family: 'Merriweather';
+  src: url('/assets/Merriweather/Merriweather-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Merriweather';
+  src: url('/assets/Merriweather/Merriweather-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Merriweather';
+  src: url('/assets/Merriweather/Merriweather-Italic.ttf') format('truetype');
+  font-weight: 400;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Merriweather';
+  src: url('/assets/Merriweather/Merriweather-BoldItalic.ttf') format('truetype');
+  font-weight: 700;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Merriweather';
+  src: url('/assets/Merriweather/Merriweather-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Merriweather';
+  src: url('/assets/Merriweather/Merriweather-LightItalic.ttf') format('truetype');
+  font-weight: 300;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Merriweather';
+  src: url('/assets/Merriweather/Merriweather-Black.ttf') format('truetype');
+  font-weight: 900;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Merriweather';
+  src: url('/assets/Merriweather/Merriweather-BlackItalic.ttf') format('truetype');
+  font-weight: 900;
+  font-style: italic;
+}
+
+* {
+  font-family: 'Merriweather';
+}
+
+/* Estilo del botón primario */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 20px;
+  font-size: 11px;
+  font-weight: bold;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: #000;
+  background-color: #fff; /* Fondo blanco */
+  border: 2px solid #000; /* Borde negro */
+  border-radius: 50px; /* Bordes redondeados */
+  transition: all 0.3s ease;
+  cursor: pointer;
+  margin-top: 15px;
+}
+
+.btn:hover {
+  background-color: #f0f0f0; /* Cambio de color al pasar el cursor */
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+}
+.admin-stats-container {
+  background-color: #FFFFFF; /* Fondo blanco sólido */
+  padding: 20px;
+  max-width: 100%;
+  overflow: hidden; /* Oculta cualquier scroll adicional */
+  margin: 0 auto;
+  border-radius: 15px; /* Bordes redondeados */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Sombra para profundidad */
+}
+
+.filters {
+    display: flex;
+    flex-wrap: wrap; /* Permite que los filtros se ajusten si el espacio es limitado */
+    gap: 20px; /* Más espacio entre los filtros */
+    align-items: flex-end; /* Alinea los elementos en la parte inferior */
+    margin-bottom: 20px;
+    padding: 15px; /* Añadido padding interno */
+    background-color: #FFFFFF; /* Fondo blanco */
+    border-radius: 8px; /* Bordes redondeados */
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2), 0px -2px 6px rgba(0, 0, 0, 0.05); /* Sombra más notoria */
+  }
+  
+
+.filters label {
+  font-weight: bold;
+  font-size: 14px; /* Tamaño de fuente ajustado */
+  margin-bottom: 4px; /* Espacio entre etiqueta y campo */
+  display: block; /* Coloca las etiquetas sobre los campos */
+}
+
+.filters input {
+  padding: 8px; /* Ajustar padding para mayor comodidad */
+  border-radius: 4px; /* Bordes redondeados */
+  border: 1px solid #ccc;
+  font-size: 14px; /* Tamaño de fuente ajustado */
+  width: 200px; /* Ancho consistente para todos los inputs */
+}
+
+.filters .btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 16px; /* Botón más compacto */
+  font-size: 12px; /* Fuente más pequeña */
+  font-weight: bold;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: #000;
+  background-color: #fff;
+  border: 2px solid #000;
+  border-radius: 50px; /* Botón redondeado */
+  transition: all 0.3s ease;
+  cursor: pointer;
+  margin-left: auto; /* Empuja el botón al final del contenedor */
+  margin: 4px;
+}
+
+.filters .btn:hover {
+
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.btn-outline {
+    border: 2px solid #FFB800;
+    background-color: white;
+    color: #FFB800;
+    transition: all 0.3s ease;
+  }
+  
+  .btn-outline:hover {
+    background-color: #FFB800;
+    color: white;
+  }
+
+.filters .btn-icon {
+  margin-left: 10px; /* Espacio entre el texto y el icono */
+}
+
+/* Logs Table */
+.logs-table {
+  width: 100%;
+  text-align: center;
+  overflow-x: auto; /* Permite el scroll horizontal si es necesario */
+}
+
+.logs-table table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  font-size: 14px; /* Ajustado para un diseño más claro */
+  border-radius: 8px; /* Bordes redondeados de la tabla */
+  overflow: hidden; /* Para aplicar los bordes redondeados */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+}
+
+.logs-table th, .logs-table td {
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+.logs-table th {
+  background-color: #1A1A1A; /* Fondo negro */
+  color: #FFFFFF; /* Texto blanco */
+  font-weight: bold;
+}
+
+.logs-table tbody tr:nth-child(odd) {
+  background-color: #f9f9f9; /* Color claro para filas impares */
+}
+
+.logs-table tbody tr:nth-child(even) {
+  background-color: #eeeeee; /* Color más oscuro para filas pares */
+}
+
+.logs-table tbody tr:hover {
+  background-color: #cccccc; /* Color de fondo en hover para mejor visibilidad */
+}
+
+.logs-table td {
+  max-width: 300px; /* Ancho máximo de cada celda */
+  white-space: normal; /* Permite que el texto se ajuste */
+  word-wrap: break-word; /* Ajusta el texto para celdas largas */
+  overflow: visible; /* Elimina el recorte de texto */
+}
+
+.logs-table td:last-child {
+  max-width: 500px; /* Ancho máximo de la columna de "Detalles" */
+  white-space: normal; /* Ajusta el texto de detalles */
+}
+
+.logs-table td {
+  font-size: 13px; /* Disminuir el tamaño del texto de las celdas */
+}
+
+/* Pagination */
+.custom-pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  margin-top: 10px;
+}
+
+.custom-pagination button {
+  background-color: transparent;
+  border: none;
+  color: #1A1A1A;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+  padding: 0 8px;
+}
+
+.custom-pagination button:hover {
+  color: #FF8800;
+}
+
+.custom-pagination button.active {
+  background-color: #FFAA00;
+  color: white;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.custom-pagination .arrow {
+  font-size: 20px;
+  padding: 0 8px;
+  color: #FFAA00;
+}
+
+.stats-title {
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+/* Ajuste de columnas de detalles */
+.logs-table td:last-child {
+  text-align: justify; /* Justifica el texto para mejorar la legibilidad */
+  line-height: 1.5; /* Mejora el espaciado entre líneas */
+}

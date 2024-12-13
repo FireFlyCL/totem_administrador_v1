@@ -1,0 +1,361 @@
+@font-face {
+  font-family: 'Merriweather';
+  src: url('/assets/Merriweather/Merriweather-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Merriweather';
+  src: url('/assets/Merriweather/Merriweather-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Merriweather';
+  src: url('/assets/Merriweather/Merriweather-Italic.ttf') format('truetype');
+  font-weight: 400;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Merriweather';
+  src: url('/assets/Merriweather/Merriweather-BoldItalic.ttf') format('truetype');
+  font-weight: 700;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Merriweather';
+  src: url('/assets/Merriweather/Merriweather-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Merriweather';
+  src: url('/assets/Merriweather/Merriweather-LightItalic.ttf') format('truetype');
+  font-weight: 300;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Merriweather';
+  src: url('/assets/Merriweather/Merriweather-Black.ttf') format('truetype');
+  font-weight: 900;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Merriweather';
+  src: url('/assets/Merriweather/Merriweather-BlackItalic.ttf') format('truetype');
+  font-weight: 900;
+  font-style: italic;
+}
+
+.permissions-container {
+  max-width: 100%;
+  margin: 20px;
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.header-container {
+  display: flex;
+  align-items: left;
+ 
+  margin-bottom: 20px;
+}
+
+.back-to-users {
+  margin-right: auto; /* Mueve el botón hacia la izquierda */
+}
+
+.back-to-users button {
+  background-color: #f0ad4e; /* Color amarillo más cálido */
+  color: white;
+  border: none;
+  padding: 15px 25px; /* Aumenta el alto del botón */
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px; /* Ajusta el tamaño del texto */
+}
+
+.back-to-users button i {
+  font-size: 16px; /* Tamaño del icono */
+  margin-right: 8px; /* Espacio entre el icono y el texto */
+}
+
+.back-to-users button:hover {
+  background-color: #ec971f; /* Color amarillo más oscuro al hacer hover */
+}
+
+.title {
+  text-align: left;
+  margin: 0; /* Elimina el margen predeterminado */
+  margin-left: 50px;
+
+  flex-grow: 1; /* Ocupa el espacio restante para centrar el título */
+
+}
+
+.module-container {
+  margin-bottom: 20px;
+}
+
+
+.table-container {
+  width: 100%;
+  margin-top: 10px;
+}
+
+table {
+  width: auto;
+  border-collapse: collapse;
+  background-color: #f9f9f9;
+  border: 1px solid #ccc;
+}
+
+th {
+  background-color: #f2f2f2;
+  padding: 10px;
+  text-align: left;
+  cursor: pointer;
+}
+
+td, th {
+  padding: 10px;
+  border: 1px solid #ddd;
+  word-wrap: break-word;
+  vertical-align: top;
+}
+
+tbody tr {
+  background-color: #f9f9f9;
+  max-height: 250px;
+  min-height: 250px;
+}
+
+tbody tr:hover {
+  background-color: #f0f0f0;
+}
+
+/* Ajuste para las celdas */
+td div {
+  padding: 10px;
+  border-radius: 5px;
+  text-align: left;
+  min-width: 200px;
+  max-width: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 250px; /* Altura fija */
+  overflow: hidden;
+  position: relative;
+}
+
+.category_name{
+  padding-top: 100px;
+  overflow: hidden;
+  font-size: 20px;
+  font-weight: 600;
+  max-width: 100px;
+}
+
+.name{
+  overflow-y: auto;
+  margin: 0;
+  min-height: 100px;
+  max-height: 100px; /* Limita el área de texto para que el botón quede abajo */
+  padding-right: 10px; /* Para la barra de desplazamiento */
+}
+.details{
+  overflow-y: auto;
+  margin: 0;
+  min-height: 100px;
+  max-height: 100px; /* Limita el área de texto para que el botón quede abajo */
+  padding-right: 10px; /* Para la barra de desplazamiento */
+}
+
+td div.active {
+  background-color: #eaffea;
+  border: 1px solid green;
+}
+
+td div.inactive {
+  background-color: #ffeaea;
+  border: 1px solid red;
+}
+
+/* Contenedor del botón */
+.button-container {
+  text-align: center;
+  margin-top: auto; /* Mantiene el botón al final del contenedor */
+  position: absolute;
+  bottom: 10px; /* Fija el botón en la parte inferior */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%; /* Ajusta el tamaño del botón para que no se salga del contenedor */
+  
+}
+
+button {
+  padding: 10px;
+  background-color: #007bff;
+  text-align: center;
+  font-size: 20px;
+  height: 40px;
+  color: white;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  width: 100%; /* Hace que el botón ocupe todo el ancho disponible */
+}
+
+button.delete-btn {
+  background-color: red;
+}
+button.add-btn {
+  background-color: rgb(16, 165, 0);
+}
+button.add-btn:hover {
+  background-color: rgb(7, 87, 0);
+}
+button:hover {
+  background-color: #0056b3;
+}
+
+button.delete-btn:hover {
+  background-color: darkred;
+}
+
+button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+thead th {
+  background-color: #f1f1f1;
+  font-weight: bold;
+}
+
+.toggle-header {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.toggle-icon {
+  margin-left: 10px;
+  font-size: 16px;
+}
+
+.success-message {
+  background-color: #dff0d8;
+  color: #3c763d;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  font-size: 14px;
+}
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+}
+
+.spinner {
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  border-left-color: #007bff;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.back-to-top {
+  position: fixed;
+  bottom: 20px;
+  right: 75px;
+  z-index: 1000; /* Asegura que el botón esté siempre encima de otros elementos */
+  background-color: #f4ff8e;
+  color: rgb(0, 0, 0);
+  border: none;
+  padding: 15px;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  max-width: 75px;
+  min-width: 75px;
+  max-height: 75px;
+  min-height: 75px;
+}
+
+.back-to-top i {
+  font-size: 20px;
+}
+
+.back-to-top:hover {
+  background-color: #0056b3;
+}
+.module-index {
+
+  background-color: #f9f9f9;
+  padding: 8px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 250px;
+  margin: 0 auto 20px; /* Centrando el índice horizontalmente */
+  margin-bottom: 50px;
+  margin-top: 50px;
+  text-align: center; /* Centrando los elementos de la lista */
+}
+
+.module-index ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.module-index li {
+  margin-bottom: 5px; /* Reducido el margen entre los elementos */
+}
+
+.module-index a {
+  width: 90%;
+  display: inline-block;
+  padding: 8px;
+  color: #007bff;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 5px;
+  transition: background-color 0.3s, color 0.3s, cursor 0.3s;
+}
+
+.module-index a:hover {
+  background-color: yellow;
+  color: #000;
+  cursor: pointer; /* Cambio del cursor cuando el mouse pasa por encima */
+}

@@ -1,0 +1,115 @@
+<div class="menu-container">
+
+  <!-- Mostrar la card de 'Usuarios' si el usuario tiene cualquier permiso relacionado con usuarios -->
+  <div *ngIf="hasPermission('users')" class="menu-card">
+    <div class="menu-icon">
+      <i class="fas fa-users"></i>
+    </div>
+    <div class="menu-content">
+      <h3>Gestión de Usuarios</h3>
+      <p>Aquí puedes gestionar los usuarios del sistema. Agregar, editar o eliminar usuarios según tu nivel de permisos.</p>
+      <p><strong>Puedes ver esto gracias a tus permisos:</strong></p>
+      <ul class="permissions-list">
+        <li *ngFor="let permission of getPermissionsFor('users')">{{ permission }}</li>
+      </ul>
+      <button class="menu-button" (click)="navigateTo('users')">Ir a Usuarios</button>
+    </div>
+  </div>
+
+  <!-- Mostrar la card de 'stats' si el usuario tiene cualquier permiso relacionado con stats -->
+  <div *ngIf="hasPermission('stats')" class="menu-card">
+    <div class="menu-icon">
+      <i class="fas fa-chart-line"></i>
+    </div>
+    <div class="menu-content">
+      <h3>Ver Estadisticas</h3>
+      <p>Aquí puedes Revisar las estadisticas del sistema para la toma de desciciones</p>
+      <p><strong>Puedes ver esto gracias a tus permisos:</strong></p>
+      <ul class="permissions-list">
+        <li *ngFor="let permission of getPermissionsFor('stats')">{{ permission }}</li>
+      </ul>
+      <button class="menu-button" (click)="navigateTo('stats')">Ir a Estadisticas</button>
+    </div>
+  </div>
+
+  <!-- Mostrar la card de 'News' -->
+  <div class="menu-card">
+    <div class="menu-icon">
+      <i class="fas fa-newspaper"></i>
+    </div>
+    <div class="menu-content">
+      <h3>Noticias</h3>
+      <p>Revisa las diferentes noticias publicadas en el totem</p>
+      <p><strong>Puedes ver esto gracias a tus permisos:</strong></p>
+      <ul class="permissions-list">
+        <li *ngFor="let permission of getPermissionsFor('news')">{{ permission }}</li>
+      </ul>
+      <button class="menu-button" (click)="navigateTo('news')">Ir a las noticias</button>
+    </div>
+  </div>
+
+  <!-- Mostrar la card de 'Maps' -->
+  <div class="menu-card">
+    <div class="menu-icon">
+      <i class="fas fa-map"></i>
+    </div>
+    <div class="menu-content">
+      <h3>Mapas</h3>
+      <p>Revisa las diferentes paginas de los puntos de interes o los mapas</p>
+      <p><strong>Puedes ver esto gracias a tus permisos:</strong></p>
+      <ul class="permissions-list">
+        <li *ngFor="let permission of getPermissionsFor('maps')">{{ permission }}</li>
+      </ul>
+      <button class="menu-button" (click)="navigateTo('maps')">Ir a los Mapas</button>
+    </div>
+  </div>
+
+  <!-- Mostrar la card de 'Information' -->
+  <div class="menu-card">
+    <div class="menu-icon">
+      <i class="fas fa-info-circle"></i>
+    </div>
+    <div class="menu-content">
+      <h3>Areas de Servicios</h3>
+      <p>Revisa las diferentes paginas de informacions de areas de servicio aqui</p>
+      <p><strong>Puedes ver esto gracias a tus permisos:</strong></p>
+      <ul class="permissions-list">
+        <li *ngFor="let permission of getPermissionsFor('information')">{{ permission }}</li>
+      </ul>
+      <button class="menu-button" (click)="navigateTo('information')">Ir Areas de Servicios</button>
+    </div>
+  </div>
+
+  <!-- Mostrar la card de 'Faqs' -->
+  <div class="menu-card">
+    <div class="menu-icon">
+      <i class="fas fa-question-circle"></i>
+    </div>
+    <div class="menu-content">
+      <h3>Preguntas Frecuentes</h3>
+      <p>Revisa las preguntas frecuentes y gestionalas aqui</p>
+      <p><strong>Puedes ver esto gracias a tus permisos:</strong></p>
+      <ul class="permissions-list">
+        <li *ngFor="let permission of getPermissionsFor('faqs')">{{ permission }}</li>
+      </ul>
+      <button class="menu-button" (click)="navigateTo('faqs')">Ir a Preguntas Frecuentes</button>
+    </div>
+  </div>
+
+  <!-- Mostrar la card de 'Collaborator'  -->
+  <div class="menu-card">
+    <div class="menu-icon">
+      <i class="fas fa-users-cog"></i>
+    </div>
+    <div class="menu-content">
+      <h3>Colaboradores</h3>
+      <p>Revisa los colaboradores como docentes o adrministrativos aqui</p>
+      <p><strong>Puedes ver esto gracias a tus permisos:</strong></p>
+      <ul class="permissions-list">
+        <li *ngFor="let permission of getPermissionsFor('collaborators')">{{ permission }}</li>
+      </ul>
+      <button class="menu-button" (click)="navigateTo('collaborator')">Ir Colaboradores</button>
+    </div>
+  </div>
+   
+</div>

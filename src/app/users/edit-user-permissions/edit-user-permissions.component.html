@@ -1,0 +1,106 @@
+<div class="permissions-container">
+  <div id="titulo" class="header-container">
+    <!-- Botón para volver a la lista de usuarios -->
+    <div class="back-to-users">
+      <button (click)="goBackToUsers()">
+        <i class="fa fa-arrow-left"></i> Volver
+      </button>
+    </div>
+
+    <!-- Título centrado -->
+    <h1 class="title">Permisos del Usuario {{ userId }}: {{ displayUsername }}</h1>
+  </div>
+
+  <nav class="module-index">
+    <ul>
+      <li *ngFor="let module of modules">
+        <a (click)="navigateToModule(module.module)">{{ module.module }}</a>
+      </li>
+    </ul>
+  </nav>
+  
+  <!-- Iterar sobre los módulos -->
+  <div *ngFor="let module of modules" id="{{ module.module }}" class="module-container">
+    <h2 class="toggle-header">
+      {{ module.module }} 
+    </h2>
+    <p>{{ module.description }}</p>
+    
+    <!-- Tabla para módulos modulares -->
+    <div class="table-container" *ngIf="module.isModular">
+      <table>
+        <thead>
+          <tr>
+            <th *ngFor="let column of module.columns">{{ column | uppercase }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td *ngFor="let column of module.columns" style="width: 150px;">
+              <div *ngIf="module.permissions && module.permissions[column]" [ngClass]="{'active': module.permissions[column]?.hasPermission, 'inactive': !module.permissions[column]?.hasPermission}">
+                <p class="name"><strong>Nombre:</strong> {{ module.permissions[column]?.permission_name || 'No disponible' }}</p>
+                <p class="details"><strong>Detalles:</strong> {{ module.permissions[column]?.permission_details || 'No disponible' }}</p>
+
+                <!-- Botón para asociar/eliminar permisos -->
+                <div class="button-container">
+                  <button *ngIf="!module.permissions[column]?.hasPermission && (hasPermission(14))" class="add-btn" (click)="assignPermission(module.permissions[column]?.permission_id ?? 0, module.permissions[column]?.id_faq_category ?? null, module.permissions[column]?.id_collaborator_category ?? null, module.permissions[column]?.id_info ?? null)">
+                    Asociar Permiso
+                  </button>
+                  <button *ngIf="module.permissions[column]?.hasPermission && (hasPermission(14))" class="delete-btn" (click)="removePermission(module.permissions[column]?.permission_id ?? 0, module.permissions[column]?.id_faq_category ?? null, module.permissions[column]?.id_collaborator_category ?? null, module.permissions[column]?.id_info ?? null)">
+                    Eliminar Permiso
+                  </button>
+                </div>
+              </div>
+              <div *ngIf="!module.permissions || !module.permissions[column]">
+                <p>No disponible</p>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Tabla para módulos categóricos (categorías de FAQ, Colaboradores, Información) -->
+    <div class="table-container" *ngIf="!module.isModular">
+      <table>
+        <thead>
+          <tr>
+            <th>Categoría</th>
+            <th *ngFor="let column of module.columns">{{ column | uppercase }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngFor="let row of module.rows">
+            <tr>
+              <td class="category_name">{{ row.category_name || row.information_title }}</td>
+              <td *ngFor="let column of module.columns">
+                <div *ngIf="row.permissions[column]" [ngClass]="{'active': row.permissions[column]?.hasPermission, 'inactive': !row.permissions[column]?.hasPermission}">
+                  <p class="name"><strong>Nombre:</strong> {{ row.permissions[column]?.permission_name || 'No disponible' }}</p>
+                  <p class="details"><strong>Detalles:</strong> {{ row.permissions[column]?.permission_details || 'No disponible' }}</p>
+
+                  <!-- Botón para asociar/eliminar permisos -->
+                  <div class="button-container">
+                    <button *ngIf="!row.permissions[column]?.hasPermission && (hasPermission(14))" (click)="assignPermission(row.permissions[column]?.permission_id ?? 0, row.permissions[column]?.id_faq_category ?? null, row.permissions[column]?.id_collaborator_category ?? null, row.permissions[column]?.id_info ?? null)">
+                      Asociar Permiso
+                    </button>
+                    <button *ngIf="row.permissions[column]?.hasPermission && (hasPermission(14))" class="delete-btn" (click)="removePermission(row.permissions[column]?.permission_id ?? 0, row.permissions[column]?.id_faq_category ?? null, row.permissions[column]?.id_collaborator_category ?? null, row.permissions[column]?.id_info ?? null)">
+                      Eliminar Permiso
+                    </button>
+                  </div>
+                </div>
+                <div *ngIf="!row.permissions[column]">
+                  <p>No disponible</p>
+                </div>
+              </td>
+            </tr>
+          </ng-container>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Botón flotante de "Volver" -->
+  <button class="back-to-top" (click)="scrollToTop()">
+    <i class="fa fa-arrow-up"></i>
+  </button>
+</div>

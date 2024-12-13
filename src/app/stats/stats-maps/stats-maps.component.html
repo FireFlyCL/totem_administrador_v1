@@ -1,0 +1,89 @@
+<div class="maps-stats-container">
+  <a class="btn btn-primary" (click)="goBack()">
+    Volver
+  </a>
+    <h2 class="stats-title">Estadísticas de Mapas</h2>
+    
+    <div class="charts-container">
+      <!-- Contenedor del Gráfico de Barras -->
+      <div class="chart-container">
+        <canvas #barChart baseChart 
+          [data]="barChartData"
+          [options]="barChartOptions"
+          [type]="'bar'">
+        </canvas>
+      </div>
+  
+      <!-- Sección de Filtros y Resúmenes -->
+      <div class="clicks-group-wrapper">
+        <div class="date-slider-container">
+          <h2>Filtro Fechas</h2>
+        
+          <!-- Campos de fecha alineados en una línea con guión entre ellos -->
+          <div class="date-range">
+            <div class="date-field">
+              <label for="startDate">Fecha Inicio</label>
+              <input type="date" [(ngModel)]="startDate" id="startDate" placeholder="dd-mm-aaaa">
+            </div>
+            <span class="date-separator">—</span> <!-- Guión entre las fechas -->
+            <div class="date-field">
+              <label for="endDate">Fecha Fin</label>
+              <input type="date" [(ngModel)]="endDate" id="endDate" placeholder="dd-mm-aaaa">
+            </div>
+          </div>
+        <!-- Botón primario de aplicar filtros -->
+          <a class="btn btn-primary" (click)="applyFilters()">
+            Aplicar Filtros
+          </a>
+        </div>
+  
+        <!-- Bloque con icono para el total de clicks -->
+        <div class="clicks-group-data-with-icon">
+          <img src="assets/mapsicon.png" alt="Icono Total de Clicks" class="clicks-icon">
+          <div class="clicks-total-text">
+            <p class="clicks-amount">{{ totalClicks }}</p>
+            <h3 class="clicks-title">Total de Clicks</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Contenedor para las tablas -->
+    <div class="tables-container">
+      <!-- Primera tabla (Ubicaciones más clickeadas) -->
+      <div class="map-click-count-table tablesub">
+        <h3 class="table-title">Ubicaciones Clickeadas</h3>
+        <table class="table table-striped custom-table">
+          <thead>
+            <tr>
+              <th scope="col" style="text-align: left;">Ubicación</th>
+              <th scope="col" style="text-align: left;">Cantidad de Clicks</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let location of paginatedMaps">
+              <th scope="row" style="text-align: left;"><p>{{ location.location }}</p></th>
+              <td><p>{{ location.clicks }}</p></td>
+            </tr>
+          </tbody>
+        </table>
+        <!-- Controles de Paginación Personalizados -->
+        <div class="custom-pagination">
+          <button (click)="previousPage()" [disabled]="currentPage === 1" class="arrow">&lt;</button>
+          
+          <button *ngFor="let page of getDisplayedPages(totalPages, currentPage)" 
+                  (click)="page !== -1 ? goToPage(page) : null" 
+                  [class.active]="currentPage === page"
+                  [disabled]="page === -1">
+            {{ page === -1 ? '...' : page }}
+          </button>
+        
+          <button (click)="nextPage()" [disabled]="currentPage === totalPages" class="arrow">&gt;</button>
+        </div>
+      </div>
+      
+      <!-- Segunda tabla (Datos Crudos de Clicks) -->
+      
+    </div>
+  </div>
+  

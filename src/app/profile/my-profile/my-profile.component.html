@@ -1,0 +1,23 @@
+<div class="profile-container">
+  <h2>Mis Permisos</h2>
+
+  <div *ngIf="userPermissions.length > 0; else noPermissions">
+    <!-- Listar los permisos categorizados por módulos -->
+    <div *ngFor="let module of modules">
+      <h3>{{ module | uppercase }}</h3>
+      <ul class="permissions-list">
+        <li *ngFor="let permission of categorizedPermissions[module]"
+            [style.background-color]="getPermissionColor(permission)">
+          {{ permission.permission_name }}
+          <span *ngIf="permission.faq_category"> - FAQ: {{ permission.faq_category.faq_category_name }}</span>
+          <span *ngIf="permission.collaborator_category"> - Colaborador: {{ permission.collaborator_category.collaborator_category_name }}</span>
+          <span *ngIf="permission.info"> - Info: {{ permission.info.information_title }}</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <ng-template #noPermissions>
+    <p>No tienes permisos asignados actualmente.</p>
+  </ng-template>
+</div>

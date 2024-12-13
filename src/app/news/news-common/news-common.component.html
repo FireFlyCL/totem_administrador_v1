@@ -1,0 +1,173 @@
+<div class="container-fluid">
+  <h2 class="text-center text-primary">
+    Gestor de Noticias - Últimas Novedades
+  </h2>
+
+  <!-- Botón para gestionar las publicaciones de Instagram -->
+  <button (click)="goToInstagramModule()" class="btn btn-info mt-4">
+    Ver Publicaciones de Instagram
+  </button>
+
+  <!-- Botón para abrir el modal de crear nueva noticia -->
+  <button (click)="openCreateModal()" class="btn btn-primary mt-4">
+    Crear Nueva Noticia
+  </button>
+
+  <!-- Lista de Noticias en formato Grid con Drag-and-Drop -->
+  <div class="news-grid mt-5">
+    <div
+      *ngFor="let news of newsList; let i = index"
+      class="news-item p-3 border rounded shadow-sm position-relative"
+      [ngClass]="{
+        'bg-light': !news.is_automatic,
+        'automatic-news': news.is_automatic
+      }"
+      draggable="true"
+      (dragstart)="onDragStart($event, i)"
+      (dragover)="onDragOver($event)"
+      (drop)="onDrop($event, i)"
+    >
+      <!-- Icono de 3 puntitos para instrucciones -->
+      <button
+        class="btn btn-light btn-sm position-absolute top-0 end-0 mt-2 me-2"
+        (click)="toggleInstructions(i)"
+        (mouseleave)="hideInstructions(i)"
+      >
+        {{ i + 1 }}
+      </button>
+
+      <div *ngIf="instructionsVisible[i]" class="instructions-popup mt-2">
+        Para reordenar las noticias, haga clic y arrastre la tarjeta a la
+        posición deseada.
+      </div>
+
+      <h4 class="text-secondary mt-4">{{ news.caption }}</h4>
+
+      <!-- Descripción de noticia automática -->
+      <p *ngIf="news.is_automatic" class="small text-muted mt-2">
+        Esta es una noticia automática generada a partir de una publicación de
+        Instagram.
+      </p>
+
+      <div class="media-container mt-3">
+        <div
+          *ngIf="news.media_type?.toLowerCase() === 'image' && news.media_url"
+        >
+          <img
+            [src]="news.media_url"
+            alt="{{ news.caption }}"
+            class="img-fluid rounded shadow-sm"
+          />
+        </div>
+        <div
+          *ngIf="news.media_type?.toLowerCase() === 'video' && news.media_url"
+        >
+          <video
+            [src]="news.media_url"
+            controls
+            class="mt-2 rounded shadow-sm"
+          ></video>
+        </div>
+      </div>
+      <div class="mt-3">
+        <!-- Quitar el botón de editar si la noticia es automática o es de Instagram -->
+        <button
+          *ngIf="!news.is_automatic && !news.is_from_instagram"
+          (click)="openEditModal(news)"
+          class="btn btn-warning me-2"
+        >
+          Editar
+        </button>
+        <button (click)="deleteNews(news.id_news)" class="btn btn-danger">
+          Eliminar
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Alertas de Confirmación - Colocadas arriba para mejor visibilidad -->
+  <div
+    *ngIf="successMessage"
+    class="alert alert-success text-center alert-confirmation fixed-center"
+  >
+    ✔️ {{ successMessage }}
+  </div>
+  <div
+    *ngIf="errorMessage"
+    class="alert alert-danger text-center alert-confirmation fixed-center"
+  >
+    ⚠️ {{ errorMessage }}
+  </div>
+
+  <!-- Modal para Crear o Editar Noticias -->
+  <div class="modal-overlay" *ngIf="showModal">
+    <div class="modal-content">
+      <span class="close-button" (click)="closeModal()">&times;</span>
+      <h3 class="modal-title">
+        {{ isEditing ? "Editar Noticia" : "Crear Nueva Noticia" }}
+      </h3>
+
+      <form [formGroup]="newsForm" (ngSubmit)="onSubmit()" class="form">
+        <div class="form-group">
+          <label for="caption" class="form-label">Título de la noticia</label>
+          <input
+            type="text"
+            id="caption"
+            formControlName="caption"
+            class="form-input-large"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="permalink" class="form-label">Enlace (opcional)</label>
+          <input
+            type="text"
+            id="permalink"
+            formControlName="permalink"
+            class="form-input-large"
+          />
+        </div>
+
+        <div class="form-group modern-file-upload">
+          <label for="file" class="form-label">Archivo de imagen o video</label>
+          <div class="file-input-wrapper">
+            <input
+              type="file"
+              id="file"
+              (change)="onFileSelect($event)"
+              class="form-input-file"
+            />
+            <label for="file" class="file-input-label">
+              <span class="icon">📁</span> Seleccionar archivo
+            </label>
+          </div>
+          <!-- Mostrar el nombre del archivo -->
+          <div *ngIf="fileName" class="file-name">
+            <strong>Archivo seleccionado:</strong> {{ fileName }}
+          </div>
+        </div>
+
+        <div class="media-preview" *ngIf="mediaPreviewUrl">
+          <div *ngIf="isImage()">
+            <img
+              [src]="mediaPreviewUrl"
+              alt="Vista previa de la imagen"
+              class="img-preview"
+            />
+          </div>
+          <div *ngIf="isVideo()">
+            <video
+              [src]="mediaPreviewUrl"
+              controls
+              class="video-preview"
+            ></video>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-success action-button w-100 mt-4">
+          {{ isEditing ? "Actualizar Noticia" : "Agregar Noticia" }}
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

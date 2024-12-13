@@ -1,0 +1,75 @@
+<div class="admin-stats-container">
+
+  <a class="btn btn-primary" (click)="goBack()">
+    Volver
+  </a>
+  <h2 class="stats-title">Estadísticas de Administrador</h2>
+
+  <!-- Filtros -->
+  <div class="filters">
+    <div>
+      <label for="startDate">Fecha de Inicio:</label>
+      <input type="date" [(ngModel)]="startDate" id="startDate" placeholder="dd-mm-aaaa">
+    </div>
+
+    <div>
+      <label for="endDate">Fecha de Fin:</label>
+      <input type="date" [(ngModel)]="endDate" id="endDate" placeholder="dd-mm-aaaa">
+    </div>
+
+    <div>
+      <label for="actionType">Tipo de Acción:</label>
+      <input type="text" [(ngModel)]="actionType" id="actionType" placeholder="Buscar por acción...">
+    </div>
+
+    <div>
+      <label for="componentType">Componente:</label>
+      <input type="text" [(ngModel)]="componentType" id="componentType" placeholder="Buscar por componente...">
+    </div>
+
+    <!-- Botón primario aplicado -->
+    <div>
+      <a class="btn btn-primary" (click)="applyFilters()">Aplicar Filtros</a>
+       <!-- Botón Eliminar Filtros -->
+  <a class="btn btn-primary btn-outline" (click)="resetFilters()">Eliminar Filtros</a>
+    </div>
+  </div>
+
+  <!-- Tabla de Logs de Administrador -->
+  <div class="logs-table">
+    <table>
+      <thead>
+        <tr>
+          <th>Fecha</th>
+          <th>Acción</th>
+          <th>Componente</th>
+          <th>Usuario</th>
+          <th>Detalles</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let log of paginatedLogs">
+          <td>{{ log.log_date | date: 'MMM d, yyyy, h:mm a' }}</td>
+          <td>{{ log.log_action }}</td>
+          <td>{{ log.log_component }}</td>
+          <td>{{ log.log_user }}</td>
+          <td>{{ log.log_details }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Controles de Paginación Personalizados -->
+    <div class="custom-pagination">
+      <button (click)="previousPage()" [disabled]="currentPage === 1" class="arrow">&lt;</button>
+      
+      <button *ngFor="let page of getDisplayedPages(totalPages, currentPage)" 
+              (click)="page !== -1 ? goToPage(page) : null" 
+              [class.active]="currentPage === page"
+              [disabled]="page === -1">
+        {{ page === -1 ? '...' : page }}
+      </button>
+    
+      <button (click)="nextPage()" [disabled]="currentPage === totalPages" class="arrow">&gt;</button>
+    </div>
+  </div>
+</div>

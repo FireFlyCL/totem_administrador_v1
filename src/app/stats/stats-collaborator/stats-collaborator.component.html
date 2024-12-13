@@ -1,0 +1,138 @@
+
+<div class="collaborator-stats-container">
+  <a class="btn btn-primary" (click)="goBack()">
+    Volver
+  </a>
+  <h2 class="stats-title">Estadísticas de Colaboradores</h2>
+  
+  <div class="charts-container">
+    <!-- Contenedor del Gráfico de Barras -->
+    <div class="chart-container">
+      <canvas #barChart baseChart 
+        [data]="barChartData"
+        [options]="barChartOptions"
+        [type]="'bar'">
+      </canvas>
+    </div>
+
+    <!-- Sección de Filtros y Resúmenes, ahora colocada en la parte superior derecha -->
+    <div class="clicks-group-wrapper">
+      <div class="date-slider-container">
+        <h2>Filtro Fechas</h2>
+      
+        <!-- Campos de fecha alineados en una línea con guión entre ellos -->
+        <div class="date-range">
+          <div class="date-field">
+            <label for="startDate">Fecha Inicio</label>
+            <input type="date" [(ngModel)]="startDate" id="startDate" placeholder="dd-mm-aaaa">
+          </div>
+          <span class="date-separator">—</span> <!-- Guión entre las fechas -->
+          <div class="date-field">
+            <label for="endDate">Fecha Fin</label>
+            <input type="date" [(ngModel)]="endDate" id="endDate" placeholder="dd-mm-aaaa">
+          </div>
+        </div>
+      <!-- Botón primario de aplicar filtros -->
+        <a class="btn btn-primary" (click)="applyFilters()">
+          Aplicar Filtros
+        </a>
+      </div>
+
+      <!-- Bloque con icono para el total de clicks -->
+      <div class="clicks-group-data-with-icon">
+        <img src="assets/colaboradoresicon.png" alt="Icono Total de Clicks" class="clicks-icon">
+        <div class="clicks-total-text">
+          <p class="clicks-amount">{{ totalClicks }}</p>
+          <h3 class="clicks-title">Total de Click por Grupo</h3>
+        </div>
+      </div>
+
+      <!-- Bloque para mostrar el porcentaje de clicks por grupo -->
+      <div class="clicks-group-data">
+        <h3>Porcentaje de Clicks por Grupo</h3>
+        <p>Administrativos: <strong>{{ administrativePercentage }}%</strong></p>
+        <p>Docentes: <strong>{{ teacherPercentage }}%</strong></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Contenedor para las tablas -->
+<!-- Contenedor para las tablas -->
+<div class="tables-container">
+  
+  <!-- Primera tabla (Colaboradores Clickeados) -->
+  <div class="collaborator-click-count-table tablesub">
+    <h3 class="table-title">Colaboradores Clickeados</h3>
+    <table class="table table-striped custom-table ">
+      <thead>
+        <tr>
+          <th scope="col" style="text-align: left;">Colaborador</th>
+          <th scope="col" style="text-align: left;">Cantidad Clicks</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let collaborator of paginatedCollaborators | paginate: { id: 'collaboratorPagination', itemsPerPage: 10, currentPage: clickLogsPage }">
+          <th scope="row" style="text-align: left;"><p>{{ collaborator.name }}</p></th>
+          <td><p>{{ collaborator.clicks }}</p></td>
+        </tr>
+      </tbody>
+    </table>
+    <!-- Controles de Paginación Personalizados -->
+    <div class="custom-pagination">
+      <button (click)="previousPage()" [disabled]="currentPage === 1" class="arrow">&lt;</button>
+      
+      <button *ngFor="let page of getDisplayedPages(totalPages, currentPage)" 
+              (click)="page !== -1 ? goToPage(page) : null" 
+              [class.active]="currentPage === page"
+              [disabled]="page === -1">
+        {{ page === -1 ? '...' : page }}
+      </button>
+    
+      <button (click)="nextPage()" [disabled]="currentPage === totalPages" class="arrow">&gt;</button>
+    </div>
+  </div>
+  <!-- Segunda tabla (Registro de Búsqueda) -->
+<div class="search-log-table tablesub">
+  <h3 class="table-title">Registro de Búsqueda</h3>
+  <table class="table table-striped custom-table">
+    <thead>
+      <tr>
+        <th scope="col" style="text-align: left;">Fecha</th>
+        <th scope="col" style="text-align: left;">Término de Búsqueda</th>
+        <th scope="col" style="text-align: left;">Cantidad</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Usa los datos agrupados para mostrar fecha, término y cantidad -->
+      <tr *ngFor="let log of paginatedSearchLogs">
+        <th scope="row" style="text-align: left;">
+          <p>{{ log.date }}</p> <!-- Fecha -->
+        </th>
+        <td>
+          <p>{{ log.term }}</p> <!-- Término de búsqueda -->
+        </td>
+        <td>
+          <p>{{ log.count }}</p> <!-- Cantidad -->
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Controles de Paginación Personalizados para la Segunda Tabla -->
+  <div class="custom-pagination">
+    <button (click)="previousSearchLogsPage()" [disabled]="searchLogsCurrentPage === 1" class="arrow">&lt;</button>
+    
+    <button *ngFor="let page of getDisplayedPages(searchLogsTotalPages, searchLogsCurrentPage)" 
+            (click)="page !== -1 ? goToSearchLogsPage(page) : null" 
+            [class.active]="searchLogsCurrentPage === page"
+            [disabled]="page === -1">
+      {{ page === -1 ? '...' : page }}
+    </button>
+  
+    <button (click)="nextSearchLogsPage()" [disabled]="searchLogsCurrentPage === searchLogsTotalPages" class="arrow">&gt;</button>
+  </div>
+</div>
+
+  
+</div>
+</div>
