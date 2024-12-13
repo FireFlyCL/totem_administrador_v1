@@ -1,0 +1,266 @@
+@font-face {
+  font-family: 'Merriweather';
+  src: url('/assets/Merriweather/Merriweather-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Merriweather';
+  src: url('/assets/Merriweather/Merriweather-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Merriweather';
+  src: url('/assets/Merriweather/Merriweather-Italic.ttf') format('truetype');
+  font-weight: 400;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Merriweather';
+  src: url('/assets/Merriweather/Merriweather-BoldItalic.ttf') format('truetype');
+  font-weight: 700;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Merriweather';
+  src: url('/assets/Merriweather/Merriweather-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Merriweather';
+  src: url('/assets/Merriweather/Merriweather-LightItalic.ttf') format('truetype');
+  font-weight: 300;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Merriweather';
+  src: url('/assets/Merriweather/Merriweather-Black.ttf') format('truetype');
+  font-weight: 900;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Merriweather';
+  src: url('/assets/Merriweather/Merriweather-BlackItalic.ttf') format('truetype');
+  font-weight: 900;
+  font-style: italic;
+}
+
+
+.fondo{ 
+    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(255, 242, 242, 0.6)), url('https://totemvespucio.cl/assets/Fotosede.jpg');
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+html, body { height: 100%; }
+
+body { margin: 0; font-family: 'Merriweather', serif;}
+
+:root {
+  /* Colores institucionales */
+  --institutional-yellow: #FDB930; /* Amarillo institucional */
+  --grey: #666666; /* Gris institucional */
+  --dark-bg: #1A1A1A; /* Fondo oscuro institucional */
+  --black: #000000; /* Negro institucional */
+  --white: #FFFFFF; /* Blanco institucional */
+
+  /* Colores secundarios por armonía analógica del amarillo */
+  --analogous-orange-dark: #FD6730; /* Naranja oscuro por armonía analógica */
+  --analogous-orange-light: #FD9030; /* Naranja claro por armonía analógica */
+  --analogous-yellow-light: #FDE230; /* Amarillo claro por armonía analógica */
+  --analogous-yellow-bright: #d7fd30; /* Amarillo brillante por armonía analógica */
+}
+ 
+
+/* Clase general para los botones */
+.btn-totem-default {
+  background-color: var(--white); /* Fondo blanco predeterminado */
+  color: var(--dark-bg); /* Texto negro institucional */
+  border: 2px solid var(--institutional-yellow); /* Borde amarillo institucional */
+  border-radius: 10px; /* Bordes redondeados */
+  padding: 10px 20px; /* Espaciado interno */
+  margin: 10px;  /* Espaciado externo */
+  display: flex; /* Alineación para contenido en fila (icono + texto) */
+  align-items: center; /* Centra verticalmente el icono y el texto */
+  gap: 8px; /* Espaciado entre el icono y el texto */
+  cursor: pointer; /* Indicador de acción al pasar el mouse */
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease; /* Transiciones suaves */
+  text-decoration: none; /* Elimina subrayados si se usa en enlaces */
+}
+
+.btn-totem-default:hover {
+  background-color: var(--institutional-yellow); /* Fondo amarillo al hover */
+  color: var(--white); /* Texto blanco al hover */
+  transform: translateY(-2px); /* Efecto de elevación */
+}
+
+/* Clase para el icono dentro del botón */
+.btn-totem-default-icon {
+  font-family: 'Material Icons'; /* Fuente de Material Icons */
+  font-size: 20px; /* Tamaño del icono */
+  display: inline-block; /* Asegura que el icono se alinee correctamente */
+}
+
+/* Clase para el texto dentro del botón */
+.btn-totem-default-text {
+  font-family: 'Merriweather', serif; /* Fuente Merriweather para el texto */
+  font-size: 16px; /* Tamaño del texto */
+  font-weight: 500; /* Peso del texto para mejor visibilidad */
+}
+
+/* Clase general para los botones (ya definida en styles.css) */
+/* btn-totem-default incluye el diseño base del botón */
+
+/* Clase específica para el botón de agregar/crear */
+.btn-totem-add {
+  background-color: var(--analogous-yellow-bright); /* Fondo amarillo brillante para resaltar acción positiva */
+  border-color: #b5fd30; /* Borde amarillo brillante */
+  color: var(--dark-bg); /* Texto negro para buen contraste */
+}
+
+.btn-totem-add:hover {
+  background-color: #b5fd30; /* Fondo más intenso al pasar el mouse */
+  color: var(--dark-bg); /* Texto negro se mantiene */
+}
+
+/* Clase específica para el botón de eliminar */
+.btn-totem-delete {
+  background-color: var(--analogous-orange-light); /* Fondo naranja claro para denotar acción de alerta */
+  border-color: var(--analogous-orange-dark); /* Borde naranja oscuro para resaltar el botón */
+  color: var(--white); /* Texto blanco para buen contraste */
+}
+
+.btn-totem-delete:hover {
+  background-color: var(--analogous-orange-dark); /* Fondo más intenso al pasar el mouse */
+  color: var(--white); /* Texto blanco se mantiene */
+}
+
+/* Clase específica para el botón de editar */
+.btn-totem-edit {
+  background-color: var(--analogous-yellow-light); /* Fondo amarillo claro para acción de modificación */
+  border-color: var(--institutional-yellow); /* Borde amarillo institucional */
+  color: var(--dark-bg); /* Texto negro para buen contraste */
+}
+
+.btn-totem-edit:hover {
+  background-color: var(--institutional-yellow); /* Fondo más intenso al pasar el mouse */
+  color: var(--dark-bg); /* Texto negro se mantiene */
+}
+
+/* Clase específica para el botón de cancelar/volver */
+.btn-totem-cancel {
+  background-color: var(--grey); /* Fondo gris institucional para acción neutral */
+  border-color: var(--dark-bg); /* Borde oscuro para destacar */
+  color: var(--white); /* Texto blanco para buen contraste */
+}
+
+.btn-totem-cancel:hover {
+  background-color: var(--dark-bg); /* Fondo más oscuro al pasar el mouse */
+  color: var(--white); /* Texto blanco se mantiene */
+}
+
+/* Clase específica para el botón del menú principal */
+.btn-totem-menu {
+  background-color: var(--grey); /* Fondo gris institucional para menú */
+  border-color: var(--white); /* Borde blanco para resaltar */
+  color: var(--white); /* Texto blanco para buen contraste */
+}
+
+.btn-totem-menu:hover {
+  background-color: var(--white); /* Fondo blanco al pasar el mouse */
+  color: var(--black); /* Texto negro para contraste */
+}
+
+/* Encabezado H1 */
+.h1-totem-default {
+  font-family: 'Merriweather', serif;
+  font-size: 2.5rem; /* Tamaño del texto */
+  font-weight: 700; /* Negrita */
+  color: var(--black); /* Negro institucional */
+  margin: 0 0 20px; /* Margen inferior */
+  line-height: 1.5; /* Altura de línea */
+}
+
+/* Encabezado H2 */
+.h2-totem-default {
+  font-family: 'Merriweather', serif;
+  font-size: 2rem; /* Tamaño del texto */
+  font-weight: 700; /* Negrita */
+  color: var(--black); /* Negro institucional */
+  margin: 0 0 18px; /* Margen inferior */
+  line-height: 1.5; /* Altura de línea */
+}
+
+/* Encabezado H3 */
+.h3-totem-default {
+  font-family: 'Merriweather', serif;
+  font-size: 1.75rem; /* Tamaño del texto */
+  font-weight: 700; /* Negrita */
+  color: var(--black); /* Negro institucional */
+  margin: 0 0 16px; /* Margen inferior */
+  line-height: 1.5; /* Altura de línea */
+}
+
+/* Encabezado H4 */
+.h4-totem-default {
+  font-family: 'Merriweather', serif;
+  font-size: 1.5rem; /* Tamaño del texto */
+  font-weight: 700; /* Negrita */
+  color: var(--black); /* Negro institucional */
+  margin: 0 0 14px; /* Margen inferior */
+  line-height: 1.5; /* Altura de línea */
+}
+
+/* Encabezado H5 */
+.h5-totem-default {
+  font-family: 'Merriweather', serif;
+  font-size: 1.25rem; /* Tamaño del texto */
+  font-weight: 700; /* Negrita */
+  color: var(--black); /* Negro institucional */
+  margin: 0 0 12px; /* Margen inferior */
+  line-height: 1.5; /* Altura de línea */
+}
+
+/* Encabezado H6 */
+.h6-totem-default {
+  font-family: 'Merriweather', serif;
+  font-size: 1rem; /* Tamaño del texto */
+  font-weight: 700; /* Negrita */
+  color: var(--black); /* Negro institucional */
+  margin: 0 0 10px; /* Margen inferior */
+  line-height: 1.5; /* Altura de línea */
+}
+
+/* Párrafo */
+.p-totem-default {
+  font-family: 'Merriweather', serif;
+  font-size: 1rem; /* Tamaño del texto */
+  font-weight: 400; /* Peso normal */
+  color: var(--black); /* Negro institucional */
+  margin: 0 0 10px; /* Margen inferior */
+  line-height: 1.5; /* Altura de línea */
+}
+
+
+.card-totem-default {
+  background-color: var(--white); /* Fondo blanco */
+  padding: 20px; /* Espaciado interno */
+  border-radius: 10px; /* Bordes redondeados */
+  border: 3px solid var(--institutional-yellow); /* Borde amarillo institucional */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transición suave */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Sombra para profundidad */
+}
+
+.card-totem-default:hover {
+  transform: translateY(-5px); /* Movimiento hacia arriba en hover */
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada en hover */
+}
